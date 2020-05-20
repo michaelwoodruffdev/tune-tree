@@ -39,7 +39,7 @@ app.post('/signup', (req, res) => {
             }
 
             // check if user already exists
-            userBase.find({ "username": req.body.username }).toArray((err, usersFound) => {
+            userBase.find({ 'username': req.body.username }).toArray((err, usersFound) => {
                 if (err) {
                     console.log(err);
                     res.status(500).end();
@@ -66,6 +66,63 @@ app.post('/signup', (req, res) => {
                     res.status(200).end();
                 });
             });
+        });
+    });
+});
+
+app.post('/signin', (req, res) => {
+    console.log(`${req.ip} (${(new Date()).toLocaleDateString()} - ${(new Date()).toLocaleTimeString()}): /signin`);
+
+    // connect to userbase
+    MongoClient.connect(mongourl, { useUnifiedTopology: true }, (err, client) => {
+        if (err) {
+            console.log(err);
+            res.status(500).end();
+            return;
+        }
+
+        const tuneTreeDB = client.db(dbName);
+
+        tuneTreeDB.collection(userBaseCollectionName, (err, userBase) => {
+            if (err) {
+                console.log(err);
+                res.status(500).end();
+                return;
+            }
+        
+            // find user by username
+            userBase.findOne({ 'username': req.body.username }, (err, userFound) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).end();
+                    return;
+                }
+                if (userFound == null) {
+                    console.log(`ERROR (signin): ${req.body.username} not found in db`);
+                    res.status(404).end();
+                    return;
+                }
+
+                // compare hashed password
+                bcrypt.compare(req.body.password, userFound.password, (err, match) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).end();
+                        return;
+                    }
+                    if (!match) {
+                        console.log(`ERROR (signin): password for ${req.body.username} didn't match`);
+                        res.status(401).end();
+                        return;
+                    } 
+                    else {
+                        // success (this is where JWT will handle signin)
+                        console.log(`${req.body.username} login successful!`);
+                        res.status(200).end();
+                        return;
+                    }
+                });
+            })
         });
     });
 });
