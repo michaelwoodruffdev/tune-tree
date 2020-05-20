@@ -9,7 +9,9 @@
   "author": "michaelwoodruffdev",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.7"
   }
 }
