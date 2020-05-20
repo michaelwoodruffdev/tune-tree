@@ -1,38 +1,53 @@
+// pull in configuration
+const config = require('./config.json');
+
 // base initialization
 const express = require('express');
 const app = express();
-const port = 3000;
 
 // dependencies
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
-// mongodb info
 const MongoClient = require('mongodb').MongoClient;
-const mongourl = 'mongodb://localhost:27017';
-const dbName = 'tunetree';
-const userBaseCollectionName = 'userbase';
 
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => res.send('TuneTree'));
 
 app.post('/signup', (req, res) => {
+
+    // non asynchronous version (but more readable)
+    // const client = await MongoClient.connect(mongourl, { useUnifiedTopology: true });
+    // const tuneTreeDB = client.db(dbName);
+    // const userBase = tuneTreeDB.collection(userBaseCollectionName);
+    // const userFound = await userBase.findOne({ 'username': req.body.username });
+    // if (userFound != null) {
+    //     console.log(`ERROR (signup): ${req.body.username} already exists`);
+    //     res.status(409).end();
+    //     return;
+    // }
+    // const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    // let userToInsert = {
+    //     username: req.body.username,
+    //     password: hash
+    // }
+    // userBase.insertOne(userToInsert);
+    // res.status(200).end();
+
     console.log(`${req.ip} (${(new Date()).toLocaleDateString()} - ${(new Date()).toLocaleTimeString()}): /signup`);
 
-    // connect to userbase
-    MongoClient.connect(mongourl, { useUnifiedTopology: true }, (err, client) => {
+    // connect to database
+    MongoClient.connect(config.mongourl, { useUnifiedTopology: true }, (err, client) => {
         if (err) {
             console.log(err);
             res.status(500).end();
             return;
         }
 
-        const tuneTreeDB = client.db(dbName);
+        const tuneTreeDB = client.db(config.dbName);
 
-        tuneTreeDB.collection(userBaseCollectionName, (err, userBase) => {
+        tuneTreeDB.collection(config.userBaseCollectionName, (err, userBase) => {
             if (err) {
                 console.log(err);
                 res.status(500).end();
@@ -53,7 +68,7 @@ app.post('/signup', (req, res) => {
                 }
 
                 // if not, hash plain text password and store user
-                bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+                bcrypt.hash(req.body.password, config.saltRounds, (err, hash) => {
                     if (err) {
                         console.log(err);
                         res.status(500).end();
@@ -75,16 +90,16 @@ app.post('/signin', (req, res) => {
     console.log(`${req.ip} (${(new Date()).toLocaleDateString()} - ${(new Date()).toLocaleTimeString()}): /signin`);
 
     // connect to userbase
-    MongoClient.connect(mongourl, { useUnifiedTopology: true }, (err, client) => {
+    MongoClient.connect(config.mongourl, { useUnifiedTopology: true }, (err, client) => {
         if (err) {
             console.log(err);
             res.status(500).end();
             return;
         }
 
-        const tuneTreeDB = client.db(dbName);
+        const tuneTreeDB = client.db(config.dbName);
 
-        tuneTreeDB.collection(userBaseCollectionName, (err, userBase) => {
+        tuneTreeDB.collection(config.userBaseCollectionName, (err, userBase) => {
             if (err) {
                 console.log(err);
                 res.status(500).end();
@@ -120,7 +135,7 @@ app.post('/signin', (req, res) => {
                     }
                     else {
                         // success (this is where JWT will handle signin)
-                        jwt.sign({ username: req.body.username }, 'secretkey', { expiresIn: '2h' }, (err, token) => {
+                        jwt.sign({ username: req.body.username }, config.secret, { expiresIn: '2h' }, (err, token) => {
                             if (err) {
                                 console.log(err);
                                 res.status(500).end();
@@ -137,4 +152,22 @@ app.post('/signin', (req, res) => {
     });
 });
 
-app.listen(port, () => console.log(`TuneTree api being served at http://localhost:${port}`));
+// authentication middleware (assuming token was sent in request body)
+const authenticate = (req, res, next) => {
+    jwt.verify(req.body.token, config.secret, (err, decoded) => {
+        if (decoded == null) {
+            res.status(401).end();
+            return;
+        }
+        else {
+            next();
+        }
+    });
+};
+
+app.post('/protected-endpoint', authenticate, (req, res) => {
+    console.log('should only get here if token was valid');
+    res.status(200).end();
+});
+
+app.listen(config.port, () => console.log(`TuneTree api being served at http://localhost:${config.port}`));
