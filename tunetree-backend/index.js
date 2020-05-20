@@ -5,6 +5,7 @@ const port = 3000;
 
 // dependencies
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -59,7 +60,7 @@ app.post('/signup', (req, res) => {
                         return;
                     }
                     let userToInsert = {
-                        username: req.body.username, 
+                        username: req.body.username,
                         password: hash
                     }
                     userBase.insertOne(userToInsert);
@@ -89,7 +90,8 @@ app.post('/signin', (req, res) => {
                 res.status(500).end();
                 return;
             }
-        
+
+
             // find user by username
             userBase.findOne({ 'username': req.body.username }, (err, userFound) => {
                 if (err) {
@@ -103,6 +105,7 @@ app.post('/signin', (req, res) => {
                     return;
                 }
 
+
                 // compare hashed password
                 bcrypt.compare(req.body.password, userFound.password, (err, match) => {
                     if (err) {
@@ -114,12 +117,19 @@ app.post('/signin', (req, res) => {
                         console.log(`ERROR (signin): password for ${req.body.username} didn't match`);
                         res.status(401).end();
                         return;
-                    } 
+                    }
                     else {
                         // success (this is where JWT will handle signin)
-                        console.log(`${req.body.username} login successful!`);
-                        res.status(200).end();
-                        return;
+                        jwt.sign({ username: req.body.username }, 'secretkey', { expiresIn: '2h' }, (err, token) => {
+                            if (err) {
+                                console.log(err);
+                                res.status(500).end();
+                                return;
+                            }
+                            console.log(`${req.body.username} signed in`);
+                            res.status(200).json({ username: req.body.username, token: token }).end();
+                            return;
+                        });
                     }
                 });
             })
