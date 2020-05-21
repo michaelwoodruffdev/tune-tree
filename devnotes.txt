@@ -11,4 +11,7 @@ may 21:
     That's what I'm going to roll with for now (fingers crossed I won't need to refactor a lot from this)
 
     I've been using the MongoClient to connect my node server to my database, I think I should be using Mongoose. 
-    I should switch to that and refactor my code into more of a 3 layer organization as recommended online
+    I should switch to that and refactor my code into services
+
+    I've split my codebase into services and implemented mongoose. Everything is looking way cleaner now! I think I'll 
+    switch over to typescript before moving on. That's something I've been wanting to implement in an app.
