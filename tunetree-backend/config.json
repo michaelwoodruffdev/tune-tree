@@ -1,8 +1,0 @@
-{
-    "port": 3000, 
-    "mongourl": "mongodb://localhost:27017", 
-    "dbName": "tunetree", 
-    "userBaseCollectionName": "userbase", 
-    "saltRounds": 10, 
-    "secret": "secretkey"
-}
