@@ -10,4 +10,5 @@ may 21:
     This would allow only my site to pull the JWT, and if my site is secure from XSS, then I should be secure.
     That's what I'm going to roll with for now (fingers crossed I won't need to refactor a lot from this)
 
-      
+    I've been using the MongoClient to connect my node server to my database, I think I should be using Mongoose. 
+    I should switch to that and refactor my code into more of a 3 layer organization as recommended online
