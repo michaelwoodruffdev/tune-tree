@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuneTree Login</title>
+</head>
+
+<body>
+    <input type="text" id="username-input" />
+    <input type="password" id="password-input" />
+    <button onclick="login()">Login</button>
+</body>
+
+</html>
+
+<script>
+    function login() {
+        let username = document.getElementById('username-input').value;
+        let password = document.getElementById('password-input').value;
+
+        fetch('http://localhost:3000/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json();
+                }
+                else {
+                    return null;
+                }
+            })
+            .then(res => {
+                if (res == null) {
+                    window.alert('login failed');
+                }
+                else {
+                    window.alert('login success');
+                    console.log(res);
+                }
+            })
+    }
+</script>

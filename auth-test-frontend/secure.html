@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuneTree Dashboard</title>
+</head>
+
+<body>
+    <h1>This is a secure page!</h1>
+    <h2 id="secure-content"></h2>
+</body>
+
+</html>
+
+<script>
+    fetch('http://localhost:3000/session-test', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => {
+            console.log('what');
+            if (res.status === 401) {
+                window.alert('not logged in');
+                return null;
+            }
+            else {
+                return res.json();
+            }
+        })
+        .then(res => {
+            if (res == null) {
+                return;
+            }
+            else {
+                document.getElementById('secure-content').value = `${res.email} logged in`;
+            }
+        })
+</script>

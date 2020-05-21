@@ -10,8 +10,21 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const MongoClient = require('mongodb').MongoClient;
+const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
+const cors = require('cors');
 
+app.use(cors());
 app.use(bodyParser.json());
+app.use(session({ 
+    secret: config.secret, 
+    resave: true, 
+    saveUninitialized: true, 
+    store: new MemoryStore({
+        checkPeriod: 86400000
+    }), 
+    unset: 'keep'
+}));
 
 app.get('/', (req, res) => res.send('TuneTree'));
 
@@ -135,16 +148,26 @@ app.post('/signin', (req, res) => {
                     }
                     else {
                         // success (this is where JWT will handle signin)
-                        jwt.sign({ username: req.body.username }, config.secret, { expiresIn: '2h' }, (err, token) => {
+                        // this is insecure, vulrenable to XSS even if stored in httpOnly cookie, should use express-session
+                        // jwt.sign({ username: req.body.username }, config.secret, { expiresIn: '2h' }, (err, token) => {
+                        //     if (err) {
+                        //         console.log(err);
+                        //         res.status(500).end();
+                        //         return;
+                        //     }
+                        //     console.log(`${req.body.username} signed in`);
+                        //     res.status(200).json({ username: req.body.username, token: token }).end();
+                        //     return;
+                        // });
+                        req.session.username = req.body.username;
+                        console.log(req.session);
+                        req.session.save((err) => {
                             if (err) {
                                 console.log(err);
-                                res.status(500).end();
-                                return;
                             }
-                            console.log(`${req.body.username} signed in`);
-                            res.status(200).json({ username: req.body.username, token: token }).end();
-                            return;
                         });
+                        res.status(200).json({ username: req.body.username }).end();
+                        return;
                     }
                 });
             })
@@ -153,21 +176,42 @@ app.post('/signin', (req, res) => {
 });
 
 // authentication middleware (assuming token was sent in request body)
+// const authenticate = (req, res, next) => {
+//     jwt.verify(req.body.token, config.secret, (err, decoded) => {
+//         if (decoded == null) {
+//             res.status(401).end();
+//             return;
+//         }
+//         else {
+//             next();
+//         }
+//     });
+// };
+
 const authenticate = (req, res, next) => {
-    jwt.verify(req.body.token, config.secret, (err, decoded) => {
-        if (decoded == null) {
-            res.status(401).end();
-            return;
-        }
-        else {
-            next();
+    req.session.reload((err) => {
+        if (err) {
+            console.log(err);
         }
     });
-};
+    console.log(req.session);
+    if (!req.session.username) {
+        res.status(401).end();
+        return;
+    }
+    else {
+        next();
+    }
+}
 
 app.post('/protected-endpoint', authenticate, (req, res) => {
     console.log('should only get here if token was valid');
     res.status(200).end();
+});
+
+app.post('/session-test', authenticate, (req, res) => {
+    res.json({ username: req.session.username }).status(200).end();
+    return;
 });
 
 app.listen(config.port, () => console.log(`TuneTree api being served at http://localhost:${config.port}`));
