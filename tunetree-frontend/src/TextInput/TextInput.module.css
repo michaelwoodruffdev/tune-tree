@@ -1,0 +1,9 @@
+.textInput {
+    padding: .5rem;
+    background-color: var(--dark-grey);
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    color: var(--off-white);
+    font-family: 'Quicksand';
+}

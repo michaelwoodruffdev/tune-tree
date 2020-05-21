@@ -1,0 +1,31 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 90%;
+    margin: auto;
+    max-width: 25rem;
+    padding: 1rem 5rem;
+    background-image: linear-gradient(to bottom right, rgb(72, 49, 87), rgb(49, 40, 58));
+    border-radius: 6px;
+    height: 50vh;
+    min-height: 35rem;
+    margin-top: 5rem;
+    position: relative;
+}
+
+.formContainer > * {
+    margin-top: 3rem !important;
+}
+
+.title {
+    /* align-self: center; */
+    margin: 0;
+    color: var(--off-white);
+}
+
+.buttonStylet {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
