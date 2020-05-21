@@ -1,0 +1,13 @@
+may 21:
+    Upon looking for authentication solutions outside of JWTs, I ended up looking at them again because they 
+    are so heavily used. I thought surely I was missing something. The thing that turned me away from them 
+    was that there's nowhere to 100% securely store them on the frontend for persistant login sessions. After reading 
+    around a lot I found this article to be a lot of help: 
+        https://dev.to/gkoniaris/how-to-securely-store-jwt-tokens-51cf
+    Reading through the article and the comments carefully I came to this conclusion. 
+    The best way to use JWTs for authentication is to do everything I can to prevent XSS on my frontend. 
+    Then, I really could either choose between localStorage or httpOnly cookies with strict samesite options.
+    This would allow only my site to pull the JWT, and if my site is secure from XSS, then I should be secure.
+    That's what I'm going to roll with for now (fingers crossed I won't need to refactor a lot from this)
+
+      
