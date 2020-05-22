@@ -1,3 +1,11 @@
+.SigninSignupPage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .formContainer {
     display: flex;
     flex-direction: column;
@@ -5,12 +13,11 @@
     width: 90%;
     margin: auto;
     max-width: 30rem;
-    /* padding: 1rem 5rem; */
     background-color: var(--off-white);
     border-radius: 6px;
     min-height: 35rem;
-    margin-top: 5rem;
     position: relative;
+    bottom: 2rem;
     box-shadow: 0 0 20px 0 var(--dark-grey);
 }
 

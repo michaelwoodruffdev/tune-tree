@@ -10,7 +10,7 @@ class UserService {
     }
 
     async createUser(body) {
-        const { username, password } = body;
+        const { username, password, email } = body;
 
         // check if username already exists
         const user = await this.Users.findOne({ username });
@@ -23,7 +23,7 @@ class UserService {
         if (!passwordHash) {
             return null;
         }
-        let userToStore = { username, passwordHash };
+        let userToStore = { username, passwordHash, email };
         let newUser = new this.Users(userToStore);
         newUser = await newUser.save();
         return newUser;

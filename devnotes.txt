@@ -34,3 +34,9 @@ may 22:
 
     Animation looks great, now I'll make the login / signup function alright. I guess I'm going to roll with JWT authentication for now, 
     but this will probably change to a serverside session implementation with redis or something
+
+    So I made an animation, learned more about React, have a solid pattern for styling. I think tomorrow I'll make a popup component, 
+    and add some username / password validation on signup, as well as some better error handling / responses from the api. Not sure if 
+    I should start on the dashboard with a page to customize the user or with the actual implementation of uploading sounds and viewing the 
+    'sound tree' I'll probably start with the user profile page, followers, (maybe friends list), messaging system because I'm pretty excited to 
+    implement those things as well, and I think they are pretty crucial in this app as well as the base functionality

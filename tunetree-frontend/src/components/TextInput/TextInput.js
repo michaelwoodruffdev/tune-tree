@@ -8,7 +8,7 @@ class TextInput extends Component {
     }
     render() {
         return (
-            <input className={styles.textInput} type="text" onChange={evt => this.props.changeFunction(evt.target.value)} placeholder={this.props.placeholder}></input>
+            <input className={styles.textInput} type={this.props.password ? 'password' : 'text'} onChange={evt => this.props.changeFunction(evt.target.value)} placeholder={this.props.placeholder}></input>
         );
     }
 }

@@ -16,6 +16,8 @@
   align-items: center;
   position: relative;
   color: var(--off-white);
+  pointer-events: none;
+  user-select: none;
 }
 
 .titleLogo {
@@ -24,6 +26,7 @@
   border-radius: 8rem;
   box-shadow: 0 0 20px 0 rgb(27, 27, 27);
   margin-right: 1rem;
+  pointer-events: none;
 }
 
 .titleH1 {
