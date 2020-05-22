@@ -1,0 +1,21 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Quicksand';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(to bottom, rgb(66, 66, 66),rgb(27, 27, 27));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Global CSS Variables */
+:root {
+  --light-purple: #9550ea;
+  --dark-purple: #6f1cd5;
+  --mid-grey: #414141;
+  --dark-grey: #242225;
+  --off-white: #d8d8d8;
+}

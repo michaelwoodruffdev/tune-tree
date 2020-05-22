@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const userSchema = require('../models/User.ts');
+const userSchema = require('../models/User.js');
 
 class UserService {
     constructor(mongoose, jwt) {
