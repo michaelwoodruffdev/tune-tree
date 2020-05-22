@@ -7,6 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const UserService = require('./services/UserService.js');
+const cors = require('cors');
 const mongoose = require('mongoose');
 
 
@@ -17,6 +18,7 @@ const userService = new UserService(mongoose, jwt);
 
 // dependency middleware
 app.use(bodyParser.json());
+app.use(cors());
 
 // SIGN UP
 app.post('/signup', async (req, res) => {

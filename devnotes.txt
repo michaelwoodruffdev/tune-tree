@@ -31,3 +31,6 @@ may 22:
 
     I have an idea for an animation on the landing page, and I'm really tempted to make it right now... I should probably work 
     on something else but whatever I'm just going to do it.
+
+    Animation looks great, now I'll make the login / signup function alright. I guess I'm going to roll with JWT authentication for now, 
+    but this will probably change to a serverside session implementation with redis or something

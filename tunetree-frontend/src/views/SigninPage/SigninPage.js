@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextInput from '../../components/TextInput/TextInput.js';
 import styles from './SigninSignupPage.module.css';
 import Button from '../../components/Button/Button.js';
+import config from '../../config.json';
 
 class SigninPage extends Component {
     constructor(props) {
@@ -13,6 +14,8 @@ class SigninPage extends Component {
 
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
+
+        this.signIn = this.signIn.bind(this);
     }
 
     setUsername(newValue) {
@@ -24,7 +27,29 @@ class SigninPage extends Component {
     }
 
     signIn() {
-        console.log('time to sign in');
+        fetch(`${config.SERVER_URL}/signin`, {
+            method: 'POST', 
+            body: JSON.stringify(this.state), 
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            } 
+            else {
+                return null;
+            }
+        })
+        .then(res => {
+            if (res) {
+                console.log(res);
+            } 
+            else {
+                window.alert('invalid username or password');
+            }
+        })
     }
 
     render() { 
