@@ -19,7 +19,7 @@
     left: 0;
     background-image: linear-gradient(to bottom right, var(--light-purple), var(--dark-purple));
     z-index: -1;
-    transition: opacity .3s ease;
+    transition: opacity .1s linear;
     opacity: 0;
 }
 
