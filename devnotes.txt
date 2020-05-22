@@ -21,3 +21,13 @@ may 21:
     I'm going with CSS modules since it keeps styling very modular much like how Vue does it.
     Now I just need to figure out the correct way to override css module styles from parent components when necessary and 
     then I should have everything I need for styling in React.
+
+may 22:
+    I think I've found the best way to override style in css modules when necessary. Passing css modules or even just 
+    specific classNames through a prop that I'll call 'extraStyle' worked very well. This makes a lot of sense actually
+
+    Another thing I found is that I should never use basic css selectors like 'h1' or 'div' even in a css module. It 
+    will leak to other components. Always give things a specified className. I still very much like css modules with React
+
+    I have an idea for an animation on the landing page, and I'm really tempted to make it right now... I should probably work 
+    on something else but whatever I'm just going to do it.

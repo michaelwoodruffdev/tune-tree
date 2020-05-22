@@ -1,7 +1,6 @@
 .buttonStyle {
     background-color: var(--dark-grey);
-    width: 7rem;
-    padding: .5rem;
+    padding: .5rem 2rem;
     border: 1px solid black;
     border-radius: 3px;
     font-size: 1.5rem;

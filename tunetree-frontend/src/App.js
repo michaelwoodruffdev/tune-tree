@@ -1,12 +1,16 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import SigninPage from './SigninPage/SigninPage.js';
+import SigninPage from './views/SigninPage/SigninPage.js';
+import LandingPage from './views/LandingPage/LandingPage.js';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/signin">
+        <Route exact path="/">
+          <LandingPage />
+        </Route>
+        <Route exact path="/signin">
           <SigninPage />
         </Route>
       </Switch>
