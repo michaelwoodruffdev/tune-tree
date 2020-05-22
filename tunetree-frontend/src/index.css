@@ -13,6 +13,9 @@ body {
 
 /* Global CSS Variables */
 :root {
+  --light-purple: #9550ea;
+  --dark-purple: #6f1cd5;
+  --mid-grey: #414141;
   --dark-grey: #242225;
   --off-white: #d8d8d8;
 }

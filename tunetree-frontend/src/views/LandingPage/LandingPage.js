@@ -12,7 +12,7 @@ class LandingPage extends Component {
         return (
             <div className={styles.landingPage}>
                 <div className={styles.title}>
-                    <img className={styles.titleLogo}src="tunetree-logo.png" alt="logo"/>
+                    <img className={styles.titleLogo} src="tunetree-logo.png" alt="logo" />
                     <h1 className={styles.titleH1}>TuneTree</h1>
                     <h3 className={styles.titleH3}>See where your sounds will go</h3>
                 </div>
@@ -23,7 +23,9 @@ class LandingPage extends Component {
                     <Link to="/signin">
                         <Button buttonText="Sign In" />
                     </Link>
-                    <Button buttonText="Sign Up" />
+                    <Link to="/signup">
+                        <Button buttonText="Sign Up" />
+                    </Link>
                 </div>
                 <div className={styles.linkRow}>
                     <a href="http://www.github.com/michaelwoodruffdev/tune-tree">Visti Github</a> | <a href="http://www.github.com/michaelwoodruffdev/tune-tree">Continue as Guest</a>
