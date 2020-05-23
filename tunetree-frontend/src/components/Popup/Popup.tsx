@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import styles from './Popup.module.css';
-import Button from '../Button/Button.js';
+import Button from '../Button/Button';
 
-class Popup extends Component {
-    constructor(props) {
+interface Props {
+    popupText: string, 
+    buttonText: string, 
+    onClickFunction: () => any
+}
+
+class Popup extends Component<Props> {
+    constructor(props: Props) {
         super(props);
         this.state = {}
     }

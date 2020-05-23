@@ -42,7 +42,7 @@ may 22:
     implement those things as well, and I think they are pretty crucial in this app as well as the base functionality
 
 may 23:
-    It's time to get good with typescript...
+    It's time to get good with typescript... I'm going to now implement typescript in the backend portion of my code
 
     Wow, there's a lot to typescript, but I think it's worth it with the amazing type completion and readability it allows. some quick notes
         - To get started with typescript you have to install typescript through npm (duh). I installed it globally rather than to my project
@@ -54,3 +54,20 @@ may 23:
         - In the compilerOptions, you should add the different types (installed with @types/whatever), to the array of strings called 'types'
         - Once all that was started, typescript has good documentation that let me utilize it well. 
         - I was able to run everything through my typescript compiler and everything worked out (phew)
+
+    Time to add typescript to my react project...
+    That went well
+        - I installed the types for the the few react libraries I was using
+        - Next, I installed Typescript itself as a dependency (I had it installed globally, but I was getting errors yelling at me)
+        - Next, I ran tsc --init to setup my tsconfig.json file. That was easy.
+        - Then came the actually difficult part, I changed my components one by one to .tsx files and fixed any complications that came
+        - CSS modules did not like to be imported the es6 way, so I kept them as require imports at first (I came back and fixed this later)
+        - I also found that the best way to define props and state was to define an interface at the top of each component file, and use this as the 
+          type being passed in (also had to define these in the generics way when declaring the class)
+        - To fix the CSS modules problem, I was reading all about this typings-for-css-modules npm library but in the end, where I would also have to 
+          either eject the webpack config files from node_modules/react-scripts, or have to edit them directly. This would have sucked because I 
+          could have lost some functionality with react-scripts if I ejected, or I could have messed with node_modules, which could really 
+          hurt others that might want to work on this in the future (node_modules is in .gitignore so)
+        - I found the solution here: https://stackoverflow.com/questions/50747062/load-css-module-in-reactjs-typescript-and-react-rewired
+          That was a lifesaver, all I had to do was add a typescript declaration file called 'global.d.ts' with the code 'declare module "*.css" LOL
+          If I had more stackoverflow reputation, I would have commented on that with praise and upvoted it

@@ -1,11 +1,14 @@
+import Button from '../../components/Button/Button';
+import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import styles from './LandingPage.module.css';
 import treeAnimation from '../../globalStyles/treeAnimation.module.css';
-import Button from '../../components/Button/Button.js';
-import { Link } from 'react-router-dom';
+
+interface Props {
+}
 
 class LandingPage extends Component {
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.state = {};
     }
@@ -29,7 +32,7 @@ class LandingPage extends Component {
                     </Link>
                 </div>
                 <div className={styles.linkRow}>
-                    <a href="http://www.github.com/michaelwoodruffdev/tune-tree">Visti Github</a> | <a href="http://www.github.com/michaelwoodruffdev/tune-tree">Continue as Guest</a>
+                    <a href="http://www.github.com/michaelwoodruffdev/tune-tree">Visit Github</a> | <a href="http://www.github.com/michaelwoodruffdev/tune-tree">Continue as Guest</a>
                 </div>
                 <img src="tunetree-tree.png" alt="" className={treeAnimation.tree} />
             </div>

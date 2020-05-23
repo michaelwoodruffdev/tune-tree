@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import TextInput from '../../components/TextInput/TextInput.js';
-import styles from './SigninSignupPage.module.css';
-import Button from '../../components/Button/Button.js';
+import TextInput from '../../components/TextInput/TextInput';
+import Button from '../../components/Button/Button';
 import config from '../../config.json';
+import styles from './SigninSignupPage.module.css';
 
 class SigninPage extends Component {
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
         this.state = {
             username: '',
@@ -18,11 +18,11 @@ class SigninPage extends Component {
         this.signIn = this.signIn.bind(this);
     }
 
-    setUsername(newValue) {
+    setUsername(newValue: string) {
         this.setState({ username: newValue });
     }
 
-    setPassword(newValue) {
+    setPassword(newValue: string) {
         this.setState({ password: newValue });
     }
 

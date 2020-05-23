@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import styles from './Button.module.css';
 
-class Button extends Component {
-    constructor(props) {
+interface Props {
+    onClickFunction?: () => any;
+    buttonText: string;
+    extraStyle?: string;
+}
+
+class Button extends Component<Props> {
+    constructor(props: Props) {
         super(props);
         this.state = {};
     }
