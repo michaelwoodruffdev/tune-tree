@@ -40,3 +40,17 @@ may 22:
     I should start on the dashboard with a page to customize the user or with the actual implementation of uploading sounds and viewing the 
     'sound tree' I'll probably start with the user profile page, followers, (maybe friends list), messaging system because I'm pretty excited to 
     implement those things as well, and I think they are pretty crucial in this app as well as the base functionality
+
+may 23:
+    It's time to get good with typescript...
+
+    Wow, there's a lot to typescript, but I think it's worth it with the amazing type completion and readability it allows. some quick notes
+        - To get started with typescript you have to install typescript through npm (duh). I installed it globally rather than to my project
+        - Some other dependencies I needed were "@typescript-eslint/parser" and "eslint". I installed these as dev dependencies in my project
+        - More dev dependencies you should download are the "@types" dependencies themselves (e.g @types/node, @types/express, etc), these will 
+          actually give you the type support from your libraries
+        - You also should run tsc --init to initialize a tsconfig.json file (tsc = typescript compiler). This sets up your config file with all the 
+          possible compilerOptions parameters commented out. This is super nice for learning.
+        - In the compilerOptions, you should add the different types (installed with @types/whatever), to the array of strings called 'types'
+        - Once all that was started, typescript has good documentation that let me utilize it well. 
+        - I was able to run everything through my typescript compiler and everything worked out (phew)
