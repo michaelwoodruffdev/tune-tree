@@ -1,10 +1,14 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userSchema = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
+const Schema = mongoose_1.default.Schema;
 const userSchema = new Schema({
-    username: String, 
-    passwordHash: String, 
+    username: String,
+    passwordHash: String,
     email: String
 });
-
-module.exports = userSchema;
+exports.userSchema = userSchema;
