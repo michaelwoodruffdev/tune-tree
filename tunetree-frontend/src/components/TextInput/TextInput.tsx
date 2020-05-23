@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import styles from './TextInput.module.css';
 
-class TextInput extends Component {
-    constructor(props) {
+interface Props {
+    password?: boolean;
+    placeholder?: string;
+    changeFunction: (newValue: string) => any
+}
+
+class TextInput extends Component<Props> {
+    constructor(props: Props) {
         super(props);
         this.state = {};
     }

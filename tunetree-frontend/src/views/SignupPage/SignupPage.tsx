@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import TextInput from '../../components/TextInput/TextInput.js';
-import styles from '../SigninPage/SigninSignupPage.module.css';
-import Button from '../../components/Button/Button.js';
+import TextInput from '../../components/TextInput/TextInput';
+import Button from '../../components/Button/Button';
 import config from '../../config.json';
+import styles from '../SigninPage/SigninSignupPage.module.css';
 
-class SigninPage extends Component {
-    constructor(props) {
+interface State {
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
+
+class SigninPage extends Component<{}, State> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             username: '',
@@ -22,19 +29,19 @@ class SigninPage extends Component {
         this.signUp = this.signUp.bind(this);
     }
 
-    setUsername(newValue) {
+    setUsername(newValue: string) {
         this.setState({ username: newValue });
     }
 
-    setEmail(newValue) {
+    setEmail(newValue: string) {
         this.setState({ email: newValue });
     }
 
-    setConfirmPassword(newValue) {
+    setConfirmPassword(newValue: string) {
         this.setState({ confirmPassword: newValue });
     }
 
-    setPassword(newValue) {
+    setPassword(newValue: string) {
         this.setState({ password: newValue });
     }
 
