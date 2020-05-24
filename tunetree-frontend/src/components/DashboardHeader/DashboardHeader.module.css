@@ -5,6 +5,8 @@
     align-items: center;
     background-color: var(--light-mid-grey);
     box-shadow: 0 0 20px 0 var(--dark-grey);
+    position: relative;
+    z-index: 3;
 }
 
 .headerLeft, .headerRight {
@@ -13,14 +15,16 @@
 }
 
 .logo {
-    width: 6rem;
-    height: 6rem;
+    width: 5rem;
+    height: 5rem;
     border-radius: 3rem;
     box-shadow: 0 0 20px 0 var(--dark-grey);
+    transition: box-shadow .5s ease;
 }
 
 .logo:hover {
     cursor: pointer;
+    box-shadow: 0 0 20px 0 black;
 }
 
 .headerTitle {

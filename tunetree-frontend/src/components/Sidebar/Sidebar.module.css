@@ -1,0 +1,13 @@
+.Sidebar {
+    background-color: var(--mid-grey);
+    box-shadow: 0 0 20px 0 var(--dark-grey);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 15rem;
+    height: calc(100vh - 7rem);
+    position: relative;
+    left: 0rem;
+    z-index: 2;
+    transition: left .2s ease;
+}

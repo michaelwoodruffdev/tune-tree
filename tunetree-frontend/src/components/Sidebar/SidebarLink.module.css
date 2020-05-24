@@ -1,0 +1,21 @@
+.SidebarLink {
+    /* background-color: blue; */
+    display: flex;
+    align-items: center;
+    padding-left: 1.5rem;
+    transition: background-color .1s linear;
+}
+
+.SidebarLink:hover {
+    background-color: rgb(88, 88, 88);
+    cursor: pointer;
+}
+
+.title {
+    margin-left: 1rem;
+    color: var(--off-white);
+}
+
+.linkIcon {
+    color: var(--off-white);
+}

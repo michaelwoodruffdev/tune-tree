@@ -71,3 +71,14 @@ may 23:
         - I found the solution here: https://stackoverflow.com/questions/50747062/load-css-module-in-reactjs-typescript-and-react-rewired
           That was a lifesaver, all I had to do was add a typescript declaration file called 'global.d.ts' with the code 'declare module "*.css" LOL
           If I had more stackoverflow reputation, I would have commented on that with praise and upvoted it
+
+  may 24:
+      A lot of the setup work is done, as far as typescript, scaffolding, things like that, so it's time I can actually start building my app 
+      with a nice flow. I have a good idea for the formatting of the page. It will closely line up with the basic formatting of youtube, and 
+      how that page deals with reacting to different sized devices
+
+      The header and sidebar went very well. some things to note, I need to fix how I'm programmatically redirecting to the dashboard 
+      from the signin page. After looking at the React Profiler I realize that this is causing my whole app to reload, I'll probably only want 
+      to do that if I'm redirecting back to the main page upon logging out.
+
+      I think tomorrow I will add a popup component, and work on the ability for users to customize their profiles (profile pictures, name, bio, etc)
