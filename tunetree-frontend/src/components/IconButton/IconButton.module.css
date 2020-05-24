@@ -1,0 +1,11 @@
+.IconButton {
+    color: var(--off-white);
+    padding: 1rem;
+    margin: .5rem;
+    /* border-radius: .5rem; */
+}
+
+.IconButton:hover {
+    cursor: pointer;
+    background-color: var(--dark-grey);
+}

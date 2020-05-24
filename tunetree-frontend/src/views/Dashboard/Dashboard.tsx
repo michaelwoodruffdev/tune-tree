@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import DashboardHeader from '../../components/DashboardHeader/DashboardHeader';
 
-class Dashboard extends Component {
+class Dashboard extends React.Component {
     constructor(props: {}) {
         super(props);
         this.state = {}
@@ -8,7 +9,7 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
-                Dashboard LOL
+                <DashboardHeader />
             </div>
         );
     }
