@@ -1,0 +1,12 @@
+.IconButton {
+    color: var(--off-white);
+    padding: 1rem;
+    margin: .5rem;
+    transition: background-color .2s linear;
+    text-shadow: 2px 3px 0 black;
+}
+
+.IconButton:hover {
+    cursor: pointer;
+    background-color: var(--dark-grey);
+}

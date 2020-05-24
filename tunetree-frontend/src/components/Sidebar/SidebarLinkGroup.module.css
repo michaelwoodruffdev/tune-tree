@@ -1,0 +1,12 @@
+.SidebarLinkGroup {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.title {
+    color: grey;
+    margin-bottom: .2rem;
+    margin-left: 1rem;
+}

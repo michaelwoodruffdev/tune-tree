@@ -1,0 +1,35 @@
+.DashboardHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    align-items: center;
+    background-color: var(--light-mid-grey);
+    box-shadow: 0 0 20px 0 var(--dark-grey);
+    position: relative;
+    z-index: 3;
+}
+
+.headerLeft, .headerRight {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 3rem;
+    box-shadow: 0 0 20px 0 var(--dark-grey);
+    transition: box-shadow .5s ease;
+}
+
+.logo:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px 0 black;
+}
+
+.headerTitle {
+    font-size: 3.7rem;
+    margin: 0 1rem;
+    color: var(--off-white);
+    text-shadow: .3rem .3rem 0 black;
+}
