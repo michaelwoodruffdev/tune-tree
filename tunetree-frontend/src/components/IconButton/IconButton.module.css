@@ -8,5 +8,5 @@
 
 .IconButton:hover {
     cursor: pointer;
-    background-color: var(--dark-grey);
+    background-color: var(--light-grey);
 }

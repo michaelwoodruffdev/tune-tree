@@ -82,3 +82,5 @@ may 23:
       to do that if I'm redirecting back to the main page upon logging out.
 
       I think tomorrow I will add a popup component, and work on the ability for users to customize their profiles (profile pictures, name, bio, etc)
+
+      Quickly added a small icon for the browser tab, and changed the name. Also refactored the light grey color i was using into a css variable

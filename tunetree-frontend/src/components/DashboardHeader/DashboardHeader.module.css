@@ -3,7 +3,7 @@
     justify-content: space-between;
     padding: 1rem 3rem;
     align-items: center;
-    background-color: var(--light-mid-grey);
+    background-color: var(--mid-grey);
     box-shadow: 0 0 20px 0 var(--dark-grey);
     position: relative;
     z-index: 3;
