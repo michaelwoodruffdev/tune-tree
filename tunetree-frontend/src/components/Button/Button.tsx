@@ -12,11 +12,11 @@ class Button extends Component<Props> {
         super(props);
         this.state = {};
     }
-    render() { 
+    render() {
         return (
             <button onClick={this.props.onClickFunction} className={`${styles.buttonStyle} ${this.props.extraStyle}`}>{this.props.buttonText}</button>
         );
     }
 }
- 
+
 export default Button;

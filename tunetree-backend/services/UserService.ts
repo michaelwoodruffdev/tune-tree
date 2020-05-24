@@ -13,7 +13,7 @@ class UserService {
         this.Users = this.mongoose.model('Users');
     }
 
-    async createUser(body: { username: string , password: string, email: string }) {
+    async createUser(body: { username: string, password: string, email: string }) {
         const { username, password, email } = body;
 
         // check if username already exists
@@ -58,7 +58,7 @@ class UserService {
         try {
             let decoded = await jwt.verify(token, process.env.JWT_SECRET!);
             return true;
-        } catch(err) {
+        } catch (err) {
             return false;
         }
     }

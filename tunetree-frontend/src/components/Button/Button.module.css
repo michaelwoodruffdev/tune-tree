@@ -1,33 +1,41 @@
 .buttonStyle {
-    background-image: linear-gradient(to bottom right, var(--dark-purple), var(--dark-purple));
-    padding: .5rem 2rem;
-    border: none;
-    /* border-radius: 3px; */
-    font-size: 1.5rem;
-    color: var(--off-white);
-    transition: background-image .15s ease;
-    position: relative;
-    z-index: 1;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--dark-purple),
+    var(--dark-purple)
+  );
+  padding: 0.5rem 2rem;
+  border: none;
+  /* border-radius: 3px; */
+  font-size: 1.5rem;
+  color: var(--off-white);
+  transition: background-image 0.15s ease;
+  position: relative;
+  z-index: 1;
 }
 
 .buttonStyle::before {
-    position: absolute;
-    content: "";
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(to bottom right, var(--light-purple), var(--dark-purple));
-    z-index: -1;
-    transition: opacity .1s linear;
-    opacity: 0;
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--light-purple),
+    var(--dark-purple)
+  );
+  z-index: -1;
+  transition: opacity 0.1s linear;
+  opacity: 0;
 }
 
 .buttonStyle:hover {
-    cursor: pointer;
-    /* background-color: var(--light-purple); */
+  cursor: pointer;
+  /* background-color: var(--light-purple); */
 }
 
 .buttonStyle:hover::before {
-    opacity: 1;
+  opacity: 1;
 }

@@ -3,8 +3,8 @@ import styles from './Popup.module.css';
 import Button from '../Button/Button';
 
 interface Props {
-    popupText: string, 
-    buttonText: string, 
+    popupText: string,
+    buttonText: string,
     onClickFunction: () => any
 }
 
@@ -14,14 +14,14 @@ class Popup extends Component<Props> {
         this.state = {}
     }
 
-    render() { 
+    render() {
         return (
             <div className={styles.Popup}>
                 <p>{this.props.popupText}</p>
-                <Button buttonText={this.props.buttonText} onClickFunction={this.props.onClickFunction}/>
+                <Button buttonText={this.props.buttonText} onClickFunction={this.props.onClickFunction} />
             </div>
         );
     }
 }
- 
+
 export default Popup;

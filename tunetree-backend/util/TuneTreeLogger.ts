@@ -4,8 +4,8 @@ class TuneTreeLogger {
     constructor() {
         this.mainLogFile = process.env.MAIN_LOG_FILE!;
     }
-    
-    logRequest(date: Date, ip: string, route: string) : void{
+
+    logRequest(date: Date, ip: string, route: string): void {
         console.log(`${ip} (${date.toLocaleDateString()} - ${date.toLocaleTimeString()}): ${route}`);
     }
 }

@@ -5,7 +5,7 @@ class Dashboard extends Component {
         super(props);
         this.state = {}
     }
-    render() { 
+    render() {
         return (
             <div>
                 Dashboard LOL
@@ -13,5 +13,5 @@ class Dashboard extends Component {
         );
     }
 }
- 
+
 export default Dashboard;
