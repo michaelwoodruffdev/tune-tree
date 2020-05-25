@@ -4,6 +4,7 @@ import Button from '../../components/Button/Button';
 import config from '../../config.json';
 import styles from '../SigninPage/SigninSignupPage.module.css';
 import Modal from '../../components/Modal/Modal';
+import { Redirect } from 'react-router-dom';
 
 interface State {
     username: string;
@@ -12,8 +13,10 @@ interface State {
     confirmPassword: string;
     showModal: boolean;
     modalText: string;
-    modalButtonText: string; 
+    modalButtonText: string;
     modalClickFunction: () => any;
+    toSignin: boolean;
+    toLanding: boolean;
 }
 
 class SigninPage extends Component<{}, State> {
@@ -27,7 +30,9 @@ class SigninPage extends Component<{}, State> {
             showModal: false,
             modalText: '',
             modalButtonText: '',
-            modalClickFunction: () => { }
+            modalClickFunction: () => { },
+            toSignin: false,
+            toLanding: false
         }
 
         this.setUsername = this.setUsername.bind(this);
@@ -36,7 +41,8 @@ class SigninPage extends Component<{}, State> {
         this.setPassword = this.setPassword.bind(this);
         this.signUp = this.signUp.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.testYesNoModal = this.testYesNoModal.bind(this);
+        this.redirectToSignin = this.redirectToSignin.bind(this);
+        this.redirectToLanding = this.redirectToLanding.bind(this);
     }
 
     closeModal() {
@@ -59,10 +65,6 @@ class SigninPage extends Component<{}, State> {
         this.setState({ password: newValue });
     }
 
-    testYesNoModal() {
-
-    }
-
     signUp() {
         if (this.state.password !== this.state.confirmPassword) {
             this.setState({ showModal: true, modalText: 'Passwords don\'t match', modalButtonText: 'Continue', modalClickFunction: this.closeModal });
@@ -82,18 +84,33 @@ class SigninPage extends Component<{}, State> {
             },
             body: JSON.stringify(signupObject)
         })
+            .then(res => res.json())
             .then(res => {
-                if (res.status === 200) {
-                    window.alert('account created');
-                    window.location.href = 'signin';
+                if (res.error) {
+                    this.setState({ showModal: true, modalText: res.error, modalClickFunction: this.closeModal });
                 }
                 else {
-                    window.alert('an error occured');
+                    this.setState({ showModal: true, modalText: 'Signup successful', modalClickFunction: this.redirectToSignin });
                 }
             });
     }
 
+    redirectToLanding() {
+        this.setState({ toLanding: true });
+    }
+
+    redirectToSignin() {
+        this.setState({ toSignin: true });
+    }
+
     render() {
+        if (this.state.toSignin) {
+            return <Redirect to="/signin" />
+        }
+        if (this.state.toLanding) {
+            return <Redirect to="/" />
+        }
+
         return (
             <div className={styles.SigninSignupPage}>
                 <div className={styles.formContainer}>
@@ -104,8 +121,9 @@ class SigninPage extends Component<{}, State> {
                     <TextInput changeFunction={this.setConfirmPassword} placeholder="confirm password" password />
                     <Button onClickFunction={this.signUp} buttonText="Submit" />
                     <div className={styles.formFooter}>
-                        <p className={styles.formFooterP}>Already have an account? <a href="/signin">Sign In</a></p>
-                        <a className={styles.formFooterA} href="/">Go Back</a>
+                        <p className={styles.formFooterP}>Already have an account? <a className={styles.formFooterA} onClick={this.redirectToSignin}>Sign In</a>
+                        </p>
+                        <a className={styles.formFooterA} onClick={this.redirectToLanding}>Go Back</a>
                     </div>
                 </div>
                 {

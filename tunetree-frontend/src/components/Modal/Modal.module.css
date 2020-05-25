@@ -16,8 +16,8 @@
     background-color: var(--off-white);
     position: relative;
     padding: 1rem 1rem;
-    min-height: 8rem;
     min-width: 26rem;
+    max-width: 34rem;
     font-size: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -25,12 +25,11 @@
 }
 
 .modalText {
-    margin: 1rem;
+    margin: 0 1rem 1rem 1rem;
     text-align: center;
 }
 
 .buttonStyle {
-    align-self: flex-end;
 }
 
 .cancelButton {

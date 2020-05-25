@@ -100,3 +100,11 @@ may 25:
 
     Now I'm going to get it to work completely with the signin and signup pages, and also improve the error handling/presenting for 
     those flows (invalid email, passwords dont match, user with username already exists, etc)
+
+    I used a library called 'validate-email' to validate the email. I thought this would check that it existed, but it just used a regex to 
+    make sure it could possibly be an email. I'll probably use a library called 'email-exists' later on, when I work on sending confirmation 
+    emails. I also used regular expressions to ensure some validation on the username and password. this is all handled on the server and 
+    then sent back to the frontend in a response. The modal component I made then presents this to the user. 
+
+    I also fixed up how I'm navigating between routes. I was doing it in a bad way that forced the application to reload :/
+    The official solution is a bit awkward, but It's alright.
