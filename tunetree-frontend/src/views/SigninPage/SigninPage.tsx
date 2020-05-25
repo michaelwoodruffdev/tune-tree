@@ -5,6 +5,7 @@ import config from '../../config.json';
 import styles from './SigninSignupPage.module.css';
 import Modal from '../../components/Modal/Modal';
 import '../../globalStyles/transitions.css';
+import { Redirect } from 'react-router-dom';
 
 export interface SigninPageProps {
 
@@ -16,7 +17,10 @@ export interface SigninPageState {
     showModal: boolean;
     modalText: string;
     modalButtonText: string;
-    modalClickFunction: () => any
+    modalClickFunction: () => any;
+    toDashboard: boolean;
+    toSignup: boolean;
+    toLanding: boolean;
 }
 
 class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
@@ -29,12 +33,17 @@ class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
             showModal: false,
             modalText: '',
             modalButtonText: '',
-            modalClickFunction: this.closeModal
+            modalClickFunction: this.closeModal, 
+            toDashboard: false, 
+            toSignup: false, 
+            toLanding: false
         }
 
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
         this.signIn = this.signIn.bind(this);
+        this.redirectToSignup = this.redirectToSignup.bind(this);
+        this.redirectToLanding = this.redirectToLanding.bind(this);
     }
 
     closeModal() {
@@ -49,6 +58,14 @@ class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
         this.setState({ password: newValue });
     }
 
+    redirectToSignup() {
+        this.setState({ toSignup: true });
+    }
+
+    redirectToLanding() {
+        this.setState({ toLanding: true });
+    }
+
     signIn() {
         fetch(`${config.SERVER_URL}/signin`, {
             method: 'POST',
@@ -57,26 +74,30 @@ class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
                 'Content-Type': 'application/json'
             }
         })
+            .then(res => res.json())
             .then(res => {
-                if (res.status === 200) {
-                    return res.json();
+                if (res.error) {
+                    this.setState({ showModal: true, modalText: res.error, modalClickFunction: this.closeModal });
+                    return;
                 }
                 else {
-                    return null;
-                }
-            })
-            .then(res => {
-                if (res) {
                     localStorage.setItem(config.TOKEN_KEY, res.token);
-                    window.location.href = '/dashboard';
-                }
-                else {
-                    this.setState({ modalText: 'Invalid username or password', modalButtonText: 'Continue', showModal: true });
+                    this.setState({ toDashboard: true });
                 }
             })
     }
 
     render() {
+        if (this.state.toDashboard) {
+            return <Redirect to='/dashboard' />
+        }
+        if (this.state.toSignup) {
+            return <Redirect to="/signup" />
+        }
+        if(this.state.toLanding) {
+            return <Redirect to="/" />
+        }
+
         return (
             <div className={styles.SigninSignupPage}>
                 <div className={styles.formContainer}>
@@ -85,8 +106,8 @@ class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
                     <TextInput changeFunction={this.setPassword} placeholder="password" password />
                     <Button onClickFunction={this.signIn} buttonText="Submit" />
                     <div className={styles.formFooter}>
-                        <p className={styles.formFooterP}>Don't have an account? <a href="/signup">Sign Up</a></p>
-                        <a className={styles.formFooterA} href="/">Go Back</a>
+                        <p className={styles.formFooterP}>Don't have an account? <a className={styles.formFooterA} onClick={this.redirectToSignup}>Sign Up</a></p>
+                        <a className={styles.formFooterA} onClick={this.redirectToLanding}>Go Back</a>
                     </div>
                     {
                         this.state.showModal &&

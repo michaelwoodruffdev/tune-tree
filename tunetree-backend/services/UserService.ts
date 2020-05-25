@@ -2,6 +2,10 @@ import bcrypt from 'bcrypt';
 import { userSchema, User } from '../models/User';
 import { Mongoose } from 'mongoose';
 import jwt from 'jsonwebtoken';
+import EmailValidator from 'email-validator';
+
+const userRegex = RegExp('[A-Za-z0-9^\s]{6,255}');
+const passwordRegex = RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$');
 
 class UserService {
     mongoose: Mongoose;
@@ -16,30 +20,81 @@ class UserService {
     async createUser(body: { username: string, password: string, email: string }) {
         const { username, password, email } = body;
 
+        // check valid username, password, and email
+        if (username === '' || password === '' || email === '') {
+            return {
+                newUser: null,
+                error: 'Empty fields detected'
+            };
+        }
+        if (!userRegex.test(username)) {
+            return {
+                newUser: null,
+                error: 'Invalid username. Usernames should be 6-255 characters long, and contain no white space.'
+            };
+        }
+        if (!passwordRegex.test(password)) {
+            return {
+                newUser: null,
+                error: 'Invalid password. Passwords should be 8-255 characters, contain at least 1 digit, and contain at least 1 special character.'
+            };
+        };
+        // for now, we'll leave it at this, this doesn't check if an email exists, apparently, the 'email-existance' library can when I need to implement that
+        if (!EmailValidator.validate(email)) {
+            return {
+                newUser: null,
+                error: 'Invalid email'
+            };
+        }
+
         // check if username already exists
-        const user = await this.Users.findOne({ username });
-        if (user) {
-            return null;
+        let testDuplicateUser = await this.Users.findOne({ username });
+        if (testDuplicateUser) {
+            return {
+                newUser: null,
+                error: 'User with that username already exists'
+            };
+        }
+
+        testDuplicateUser = await this.Users.findOne({ email });
+        if (testDuplicateUser) {
+            return {
+                newUser: null,
+                error: 'User with that email already exists'
+            };
         }
 
         // if not, encrypt password and store in database
         let passwordHash = await bcrypt.hash(password, Number(process.env.SALT_ROUNDS));
         if (!passwordHash) {
-            return null;
+            return {
+                newUser: null,
+                error: 'Server error'
+            };
         }
+
         let userToStore: User = { username, passwordHash, email };
         let newUser = new this.Users(userToStore);
         newUser = await newUser.save();
-        return newUser;
+        return {
+            newUser: newUser,
+            error: null
+        };
     }
 
     async signin(body: { username: string, password: string }) {
         const { username, password } = body;
 
         // check that user with username exists
-        const user = await this.Users.findOne({ username });
+        let user = await this.Users.findOne({ username });
         if (!user) {
-            return null;
+            user = await this.Users.findOne({ "email": username });
+        }
+        if (!user) {
+            return {
+                token: null, 
+                error: 'Invalid username or email'
+            };
         }
 
         // if found, compare hash and sign in
@@ -47,10 +102,16 @@ class UserService {
         if (match) {
             let token = jwt.sign({ username }, process.env.JWT_SECRET!, { expiresIn: '2h' });
             console.log(`${username} signed in`);
-            return token;
+            return {
+                token, 
+                error: null
+            };
         }
         else {
-            return null;
+            return {
+                token: null, 
+                error: 'Invalid password'
+            };
         }
     }
 

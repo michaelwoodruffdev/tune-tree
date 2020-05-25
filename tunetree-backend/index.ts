@@ -23,38 +23,24 @@ app.use(cors());
 // SIGN UP
 app.post('/signup', async (req, res) => {
     tuneTreeLogger.logRequest(new Date(), req.ip, req.path);
-
-    let newUser = await userService.createUser(req.body);
-    if (!newUser) {
-        res.status(500).end();
-        return;
-    }
-    res.status(200).end();
-    return;
+    let signupResults = await userService.createUser(req.body);
+    res.status(200).json(signupResults).end();
 });
 
 // SIGN IN
 app.post('/signin', async (req, res) => {
     tuneTreeLogger.logRequest(new Date(), req.ip, req.path);
-
-    let token = await userService.signin(req.body);
-    if (token) {
-        res.status(200).json({ token }).end();
-    }
-    else {
-        res.status(401).end();
-    }
+    let signinResults = await userService.signin(req.body);
+    res.status(200).json(signinResults).end();
 });
 
 // TEST PROTECTED ENDPOINT
 app.post('/protected-endpoint', async (req, res) => {
     tuneTreeLogger.logRequest(new Date(), req.ip, req.path);
-
     if (!(await userService.authenticate(req.body.token))) {
         res.status(401).end();
         return;
     }
-
     console.log('should only get here if token was valid');
     res.status(200).end();
 });

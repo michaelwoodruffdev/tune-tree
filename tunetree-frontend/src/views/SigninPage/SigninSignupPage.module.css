@@ -40,5 +40,12 @@
 }
 
 .formFooterA {
-  margin: auto;
+  /* margin: auto; */
+  text-decoration: underline;
+  color: var(--dark-purple);
+}
+
+.formFooterA:hover {
+  color: var(--light-purple);
+  cursor: pointer;
 }
