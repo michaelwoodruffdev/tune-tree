@@ -3,12 +3,17 @@ import TextInput from '../../components/TextInput/TextInput';
 import Button from '../../components/Button/Button';
 import config from '../../config.json';
 import styles from '../SigninPage/SigninSignupPage.module.css';
+import Modal from '../../components/Modal/Modal';
 
 interface State {
     username: string;
     email: string;
     password: string;
     confirmPassword: string;
+    showModal: boolean;
+    modalText: string;
+    modalButtonText: string; 
+    modalClickFunction: () => any;
 }
 
 class SigninPage extends Component<{}, State> {
@@ -18,15 +23,24 @@ class SigninPage extends Component<{}, State> {
             username: '',
             email: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            showModal: false,
+            modalText: '',
+            modalButtonText: '',
+            modalClickFunction: () => { }
         }
 
         this.setUsername = this.setUsername.bind(this);
         this.setEmail = this.setEmail.bind(this);
         this.setConfirmPassword = this.setConfirmPassword.bind(this);
         this.setPassword = this.setPassword.bind(this);
-
         this.signUp = this.signUp.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.testYesNoModal = this.testYesNoModal.bind(this);
+    }
+
+    closeModal() {
+        this.setState({ showModal: false });
     }
 
     setUsername(newValue: string) {
@@ -45,9 +59,13 @@ class SigninPage extends Component<{}, State> {
         this.setState({ password: newValue });
     }
 
+    testYesNoModal() {
+
+    }
+
     signUp() {
         if (this.state.password !== this.state.confirmPassword) {
-            window.alert('passwords don\'t match');
+            this.setState({ showModal: true, modalText: 'Passwords don\'t match', modalButtonText: 'Continue', modalClickFunction: this.closeModal });
             return;
         }
 
@@ -90,6 +108,10 @@ class SigninPage extends Component<{}, State> {
                         <a className={styles.formFooterA} href="/">Go Back</a>
                     </div>
                 </div>
+                {
+                    this.state.showModal &&
+                    <Modal modalText={this.state.modalText} onClickFunction={this.state.modalClickFunction} />
+                }
             </div>
         );
     }

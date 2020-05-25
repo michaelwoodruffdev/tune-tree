@@ -1,12 +1,7 @@
 .buttonStyle {
-  background-image: linear-gradient(
-    to bottom right,
-    var(--dark-purple),
-    var(--dark-purple)
-  );
+  background-color: var(--dark-purple);
   padding: 0.5rem 2rem;
   border: none;
-  /* border-radius: 3px; */
   font-size: 1.5rem;
   color: var(--off-white);
   transition: background-image 0.15s ease;
@@ -33,7 +28,6 @@
 
 .buttonStyle:hover {
   cursor: pointer;
-  /* background-color: var(--light-purple); */
 }
 
 .buttonStyle:hover::before {

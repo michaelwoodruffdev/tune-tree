@@ -1,21 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import TextInput from '../../components/TextInput/TextInput';
 import Button from '../../components/Button/Button';
 import config from '../../config.json';
 import styles from './SigninSignupPage.module.css';
+import Modal from '../../components/Modal/Modal';
+import '../../globalStyles/transitions.css';
 
-class SigninPage extends Component {
-    constructor(props: {}) {
+export interface SigninPageProps {
+
+}
+
+export interface SigninPageState {
+    username: string;
+    password: string;
+    showModal: boolean;
+    modalText: string;
+    modalButtonText: string;
+    modalClickFunction: () => any
+}
+
+class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
+    constructor(props: SigninPageProps) {
         super(props);
+        this.closeModal = this.closeModal.bind(this);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            showModal: false,
+            modalText: '',
+            modalButtonText: '',
+            modalClickFunction: this.closeModal
         }
 
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
-
         this.signIn = this.signIn.bind(this);
+    }
+
+    closeModal() {
+        this.setState({ showModal: false });
     }
 
     setUsername(newValue: string) {
@@ -48,7 +71,7 @@ class SigninPage extends Component {
                     window.location.href = '/dashboard';
                 }
                 else {
-                    window.alert('invalid username or password');
+                    this.setState({ modalText: 'Invalid username or password', modalButtonText: 'Continue', showModal: true });
                 }
             })
     }
@@ -65,6 +88,10 @@ class SigninPage extends Component {
                         <p className={styles.formFooterP}>Don't have an account? <a href="/signup">Sign Up</a></p>
                         <a className={styles.formFooterA} href="/">Go Back</a>
                     </div>
+                    {
+                        this.state.showModal &&
+                        <Modal modalText={this.state.modalText} buttonText={this.state.modalButtonText} onClickFunction={this.state.modalClickFunction} />
+                    }
                 </div>
             </div>
         );
