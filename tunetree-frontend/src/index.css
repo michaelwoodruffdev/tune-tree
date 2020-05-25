@@ -23,4 +23,6 @@ body {
   --dark-grey: #242225;
   --off-white: #d8d8d8;
   --light-grey: rgb(88, 88, 88);
+  --red: rgb(216, 59, 59);
+  --light-red: rgb(219, 87, 87);
 }

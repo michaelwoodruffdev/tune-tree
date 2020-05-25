@@ -45,42 +45,58 @@ may 23:
     It's time to get good with typescript... I'm going to now implement typescript in the backend portion of my code
 
     Wow, there's a lot to typescript, but I think it's worth it with the amazing type completion and readability it allows. some quick notes
-        - To get started with typescript you have to install typescript through npm (duh). I installed it globally rather than to my project
-        - Some other dependencies I needed were "@typescript-eslint/parser" and "eslint". I installed these as dev dependencies in my project
-        - More dev dependencies you should download are the "@types" dependencies themselves (e.g @types/node, @types/express, etc), these will 
-          actually give you the type support from your libraries
-        - You also should run tsc --init to initialize a tsconfig.json file (tsc = typescript compiler). This sets up your config file with all the 
-          possible compilerOptions parameters commented out. This is super nice for learning.
-        - In the compilerOptions, you should add the different types (installed with @types/whatever), to the array of strings called 'types'
-        - Once all that was started, typescript has good documentation that let me utilize it well. 
-        - I was able to run everything through my typescript compiler and everything worked out (phew)
+      - To get started with typescript you have to install typescript through npm (duh). I installed it globally rather than to my project
+      - Some other dependencies I needed were "@typescript-eslint/parser" and "eslint". I installed these as dev dependencies in my project
+      - More dev dependencies you should download are the "@types" dependencies themselves (e.g @types/node, @types/express, etc), these will 
+        actually give you the type support from your libraries
+      - You also should run tsc --init to initialize a tsconfig.json file (tsc = typescript compiler). This sets up your config file with all the 
+        possible compilerOptions parameters commented out. This is super nice for learning.
+      - In the compilerOptions, you should add the different types (installed with @types/whatever), to the array of strings called 'types'
+      - Once all that was started, typescript has good documentation that let me utilize it well. 
+      - I was able to run everything through my typescript compiler and everything worked out (phew)
 
     Time to add typescript to my react project...
     That went well
-        - I installed the types for the the few react libraries I was using
-        - Next, I installed Typescript itself as a dependency (I had it installed globally, but I was getting errors yelling at me)
-        - Next, I ran tsc --init to setup my tsconfig.json file. That was easy.
-        - Then came the actually difficult part, I changed my components one by one to .tsx files and fixed any complications that came
-        - CSS modules did not like to be imported the es6 way, so I kept them as require imports at first (I came back and fixed this later)
-        - I also found that the best way to define props and state was to define an interface at the top of each component file, and use this as the 
-          type being passed in (also had to define these in the generics way when declaring the class)
-        - To fix the CSS modules problem, I was reading all about this typings-for-css-modules npm library but in the end, where I would also have to 
-          either eject the webpack config files from node_modules/react-scripts, or have to edit them directly. This would have sucked because I 
-          could have lost some functionality with react-scripts if I ejected, or I could have messed with node_modules, which could really 
-          hurt others that might want to work on this in the future (node_modules is in .gitignore so)
-        - I found the solution here: https://stackoverflow.com/questions/50747062/load-css-module-in-reactjs-typescript-and-react-rewired
-          That was a lifesaver, all I had to do was add a typescript declaration file called 'global.d.ts' with the code 'declare module "*.css" LOL
-          If I had more stackoverflow reputation, I would have commented on that with praise and upvoted it
+      - I installed the types for the the few react libraries I was using
+      - Next, I installed Typescript itself as a dependency (I had it installed globally, but I was getting errors yelling at me)
+      - Next, I ran tsc --init to setup my tsconfig.json file. That was easy.
+      - Then came the actually difficult part, I changed my components one by one to .tsx files and fixed any complications that came
+      - CSS modules did not like to be imported the es6 way, so I kept them as require imports at first (I came back and fixed this later)
+      - I also found that the best way to define props and state was to define an interface at the top of each component file, and use this as the 
+        type being passed in (also had to define these in the generics way when declaring the class)
+      - To fix the CSS modules problem, I was reading all about this typings-for-css-modules npm library but in the end, where I would also have to 
+        either eject the webpack config files from node_modules/react-scripts, or have to edit them directly. This would have sucked because I 
+        could have lost some functionality with react-scripts if I ejected, or I could have messed with node_modules, which could really 
+        hurt others that might want to work on this in the future (node_modules is in .gitignore so)
+      - I found the solution here: https://stackoverflow.com/questions/50747062/load-css-module-in-reactjs-typescript-and-react-rewired
+        That was a lifesaver, all I had to do was add a typescript declaration file called 'global.d.ts' with the code 'declare module "*.css" LOL
+        If I had more stackoverflow reputation, I would have commented on that with praise and upvoted it
 
-  may 24:
-      A lot of the setup work is done, as far as typescript, scaffolding, things like that, so it's time I can actually start building my app 
-      with a nice flow. I have a good idea for the formatting of the page. It will closely line up with the basic formatting of youtube, and 
-      how that page deals with reacting to different sized devices
+may 24:
+    A lot of the setup work is done, as far as typescript, scaffolding, things like that, so it's time I can actually start building my app 
+    with a nice flow. I have a good idea for the formatting of the page. It will closely line up with the basic formatting of youtube, and 
+    how that page deals with reacting to different sized devices
 
-      The header and sidebar went very well. some things to note, I need to fix how I'm programmatically redirecting to the dashboard 
-      from the signin page. After looking at the React Profiler I realize that this is causing my whole app to reload, I'll probably only want 
-      to do that if I'm redirecting back to the main page upon logging out.
+    The header and sidebar went very well. some things to note, I need to fix how I'm programmatically redirecting to the dashboard 
+    from the signin page. After looking at the React Profiler I realize that this is causing my whole app to reload, I'll probably only want 
+    to do that if I'm redirecting back to the main page upon logging out.
 
-      I think tomorrow I will add a popup component, and work on the ability for users to customize their profiles (profile pictures, name, bio, etc)
+    I think tomorrow I will add a popup component, and work on the ability for users to customize their profiles (profile pictures, name, bio, etc)
 
-      Quickly added a small icon for the browser tab, and changed the name. Also refactored the light grey color i was using into a css variable
+    Quickly added a small icon for the browser tab, and changed the name. Also refactored the light grey color i was using into a css variable
+
+may 25:
+    Time to make a modal component
+
+    So modal component went very well. Uses fixed postioning and z-index to make it block out the rest of the screen. Also used the 'react-transition-group' 
+    library to allow the modal to fade in which was nice. It was kind of confusing to implement, There was some outdated articel I was reading about it, 
+    and the library had changed a bit I found out when I went to the official docs. Also it threw a deprecation warning in the console about depricated 
+    findDOMNode function that the library used. After looking through the issues on github I found this solution they introduced in 4.4.0
+    https://github.com/reactjs/react-transition-group/blob/1fd4a65ac45edd2aea3dec18eeb8b9c07c7eb93f/CHANGELOG.md#features
+
+    I also made the modal allow for yesno or confirmdeny options, so I'm sure that will be useful in the future. I might also want to 
+    make it flexible with multiple buttons across the row at the bottom passed in via props, who knows. I probably nerded out too much on 
+    this component anyway XD
+
+    Now I'm going to get it to work completely with the signin and signup pages, and also improve the error handling/presenting for 
+    those flows (invalid email, passwords dont match, user with username already exists, etc)

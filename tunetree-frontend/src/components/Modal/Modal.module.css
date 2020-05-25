@@ -1,0 +1,47 @@
+.Modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #00000099;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    margin: 0 !important;
+}
+
+.modalBox {
+    background-color: var(--off-white);
+    position: relative;
+    padding: 1rem 1rem;
+    min-height: 8rem;
+    min-width: 26rem;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.modalText {
+    margin: 1rem;
+    text-align: center;
+}
+
+.buttonStyle {
+    align-self: flex-end;
+}
+
+.cancelButton {
+    background-color: var(--red) !important;
+}
+
+.cancelButton::before {
+    background-image: linear-gradient(to bottom right, var(--light-red), var(--red)) !important;
+}
+
+.buttonsRow {
+    display: flex;
+    justify-content: space-between;
+}
