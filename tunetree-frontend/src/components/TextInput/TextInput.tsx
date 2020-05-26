@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import styles from './TextInput.module.css';
 
-interface Props {
+export interface TextInputProps {
     password?: boolean;
     placeholder?: string;
     changeFunction: (newValue: string) => any
 }
 
-class TextInput extends Component<Props> {
-    constructor(props: Props) {
+export interface TextInputState { };
+
+class TextInput extends Component<TextInputProps, TextInputState> {
+    constructor(props: TextInputProps) {
         super(props);
         this.state = {};
     }

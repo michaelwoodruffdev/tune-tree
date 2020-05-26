@@ -5,9 +5,7 @@ export interface SidebarPopoutButtonProps {
     onClickFunction: () => any
 }
 
-export interface SidebarPopoutButtonState {
-
-}
+export interface SidebarPopoutButtonState { };
 
 class SidebarPopoutButton extends React.Component<SidebarPopoutButtonProps, SidebarPopoutButtonState> {
     constructor(props: SidebarPopoutButtonProps) {

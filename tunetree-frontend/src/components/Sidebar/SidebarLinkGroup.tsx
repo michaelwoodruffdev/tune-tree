@@ -8,9 +8,7 @@ export interface SidebarLinkGroupProps {
     linkGroup: LinkGroup;
 }
 
-export interface SidebarLinkGroupState {
-
-}
+export interface SidebarLinkGroupState { };
 
 class SidebarLinkGroup extends React.Component<SidebarLinkGroupProps, SidebarLinkGroupState> {
     constructor(props: SidebarLinkGroupProps) {
@@ -22,7 +20,7 @@ class SidebarLinkGroup extends React.Component<SidebarLinkGroupProps, SidebarLin
             <div className={styles.SidebarLinkGroup}>
                 {this.props.linkGroup.title && <p className={styles.title}>{this.props.linkGroup.title}</p>}
                 {this.props.linkGroup.links.map(link => (
-                    <SidebarLink link={link} activeLink={this.props.activeLink} key={link.title}/>
+                    <SidebarLink link={link} activeLink={this.props.activeLink} key={link.title} />
                 ))}
             </div>
         );

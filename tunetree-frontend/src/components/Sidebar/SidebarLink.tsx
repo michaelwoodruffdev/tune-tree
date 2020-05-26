@@ -6,17 +6,15 @@ export interface SidebarLinkProps {
     link: Link;
     activeLink: string | null;
 }
- 
-export interface SidebarLinkState {
-    
-}
- 
+
+export interface SidebarLinkState { };
+
 class SidebarLink extends React.Component<SidebarLinkProps, SidebarLinkState> {
     constructor(props: SidebarLinkProps) {
         super(props);
         this.state = {};
     }
-    render() { 
+    render() {
         return (
             <div className={styles.SidebarLink}>
                 <i className={`${this.props.link.iconInfo} ${styles.linkIcon}`}></i>
@@ -25,5 +23,5 @@ class SidebarLink extends React.Component<SidebarLinkProps, SidebarLinkState> {
         );
     }
 }
- 
+
 export default SidebarLink;

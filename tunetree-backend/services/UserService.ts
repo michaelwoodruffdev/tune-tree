@@ -1,11 +1,13 @@
+require('dotenv').config();
+
 import bcrypt from 'bcrypt';
 import { userSchema, User } from '../models/User';
 import { Mongoose } from 'mongoose';
 import jwt from 'jsonwebtoken';
 import EmailValidator from 'email-validator';
 
-const userRegex = RegExp('[A-Za-z0-9^\s]{6,255}');
-const passwordRegex = RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$');
+const userRegex = RegExp(process.env.USER_REGEX!);
+const passwordRegex = RegExp(process.env.PASSWORD_REGEX!);
 
 class UserService {
     mongoose: Mongoose;
@@ -47,7 +49,7 @@ class UserService {
             };
         }
 
-        // check if username already exists
+        // check if username or email already exists
         let testDuplicateUser = await this.Users.findOne({ username });
         if (testDuplicateUser) {
             return {
@@ -55,7 +57,6 @@ class UserService {
                 error: 'User with that username already exists'
             };
         }
-
         testDuplicateUser = await this.Users.findOne({ email });
         if (testDuplicateUser) {
             return {
@@ -64,7 +65,7 @@ class UserService {
             };
         }
 
-        // if not, encrypt password and store in database
+        // if everything passes, encrypt password and store in database
         let passwordHash = await bcrypt.hash(password, Number(process.env.SALT_ROUNDS));
         if (!passwordHash) {
             return {

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import styles from './Button.module.css';
 
-interface Props {
+export interface ButtonProps {
     onClickFunction?: () => any;
     buttonText: string;
     extraStyle?: string;
 }
 
-class Button extends Component<Props> {
-    constructor(props: Props) {
+export interface ButtonState { };
+
+class Button extends Component<ButtonProps, ButtonState> {
+    constructor(props: ButtonProps) {
         super(props);
         this.state = {};
     }

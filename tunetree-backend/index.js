@@ -40,13 +40,6 @@ app.post('/signin', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     tuneTreeLogger.logRequest(new Date(), req.ip, req.path);
     let signinResults = yield userService.signin(req.body);
     res.status(200).json(signinResults).end();
-    // let token = await userService.signin(req.body);
-    // if (token) {
-    //     res.status(200).json({ token }).end();
-    // }
-    // else {
-    //     res.status(401).end();
-    // }
 }));
 // TEST PROTECTED ENDPOINT
 app.post('/protected-endpoint', (req, res) => __awaiter(void 0, void 0, void 0, function* () {

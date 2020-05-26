@@ -108,3 +108,6 @@ may 25:
 
     I also fixed up how I'm navigating between routes. I was doing it in a bad way that forced the application to reload :/
     The official solution is a bit awkward, but It's alright.
+
+may 26:
+    Cleaned up any comments hanging around in my code, also made sure each tsx component deals with props/state in a uniform way/pattern

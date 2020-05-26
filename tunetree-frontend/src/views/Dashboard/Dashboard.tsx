@@ -3,13 +3,9 @@ import DashboardHeader from '../../components/DashboardHeader/DashboardHeader';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import config from '../../config.json';
 
-export interface DashboardProps {
+export interface DashboardProps { };
 
-}
-
-export interface DashboardState {
-
-}
+export interface DashboardState { };
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
     constructor(props: DashboardProps) {

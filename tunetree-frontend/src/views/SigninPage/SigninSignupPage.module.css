@@ -40,7 +40,8 @@
 }
 
 .formFooterA {
-  /* margin: auto; */
+  display: inline;
+  margin: 0;
   text-decoration: underline;
   color: var(--dark-purple);
 }

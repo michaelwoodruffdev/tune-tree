@@ -13,5 +13,4 @@ interface User {
     email: string;
 }
 
-// module.exports = userSchema;
 export { userSchema, User };

@@ -7,9 +7,7 @@ import Modal from '../../components/Modal/Modal';
 import '../../globalStyles/transitions.css';
 import { Redirect } from 'react-router-dom';
 
-export interface SigninPageProps {
-
-}
+export interface SigninPageProps {};
 
 export interface SigninPageState {
     username: string;
@@ -21,7 +19,7 @@ export interface SigninPageState {
     toDashboard: boolean;
     toSignup: boolean;
     toLanding: boolean;
-}
+};
 
 class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
     constructor(props: SigninPageProps) {
@@ -106,8 +104,8 @@ class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
                     <TextInput changeFunction={this.setPassword} placeholder="password" password />
                     <Button onClickFunction={this.signIn} buttonText="Submit" />
                     <div className={styles.formFooter}>
-                        <p className={styles.formFooterP}>Don't have an account? <a className={styles.formFooterA} onClick={this.redirectToSignup}>Sign Up</a></p>
-                        <a className={styles.formFooterA} onClick={this.redirectToLanding}>Go Back</a>
+                        <p className={styles.formFooterP}>Don't have an account? <p className={styles.formFooterA} onClick={this.redirectToSignup}>Sign Up</p></p>
+                        <p className={styles.formFooterA} onClick={this.redirectToLanding}>Go Back</p>
                     </div>
                     {
                         this.state.showModal &&

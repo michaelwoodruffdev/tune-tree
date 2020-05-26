@@ -4,11 +4,12 @@ import React, { Component } from 'react';
 import styles from './LandingPage.module.css';
 import treeAnimation from '../../globalStyles/treeAnimation.module.css';
 
-interface Props {
-}
+export interface LandingPageProps { };
 
-class LandingPage extends Component {
-    constructor(props: Props) {
+export interface LandingPageState { };
+
+class LandingPage extends Component<LandingPageProps, LandingPageState> {
+    constructor(props: LandingPageProps) {
         super(props);
         this.state = {};
     }

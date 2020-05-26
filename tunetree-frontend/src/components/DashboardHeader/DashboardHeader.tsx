@@ -2,13 +2,9 @@ import React from 'react';
 import styles from './DashboardHeader.module.css';
 import IconButton from '../IconButton/IconButton';
 
-export interface DashboardHeaderProps {
+export interface DashboardHeaderProps { };
 
-}
-
-export interface DashboardHeaderState {
-
-}
+export interface DashboardHeaderState { };
 
 class DashboardHeader extends React.Component<DashboardHeaderProps, DashboardHeaderState> {
     constructor(props: DashboardHeaderProps) {

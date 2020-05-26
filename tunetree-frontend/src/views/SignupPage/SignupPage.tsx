@@ -6,7 +6,9 @@ import styles from '../SigninPage/SigninSignupPage.module.css';
 import Modal from '../../components/Modal/Modal';
 import { Redirect } from 'react-router-dom';
 
-interface State {
+export interface SignupPageProps { };
+
+export interface SignupPageState {
     username: string;
     email: string;
     password: string;
@@ -17,10 +19,10 @@ interface State {
     modalClickFunction: () => any;
     toSignin: boolean;
     toLanding: boolean;
-}
+};
 
-class SigninPage extends Component<{}, State> {
-    constructor(props: {}) {
+class SigninPage extends Component<SignupPageProps, SignupPageState> {
+    constructor(props: SignupPageProps) {
         super(props);
         this.state = {
             username: '',
@@ -121,9 +123,9 @@ class SigninPage extends Component<{}, State> {
                     <TextInput changeFunction={this.setConfirmPassword} placeholder="confirm password" password />
                     <Button onClickFunction={this.signUp} buttonText="Submit" />
                     <div className={styles.formFooter}>
-                        <p className={styles.formFooterP}>Already have an account? <a className={styles.formFooterA} onClick={this.redirectToSignin}>Sign In</a>
+                        <p className={styles.formFooterP}>Already have an account? <p className={styles.formFooterA} onClick={this.redirectToSignin}>Sign In</p>
                         </p>
-                        <a className={styles.formFooterA} onClick={this.redirectToLanding}>Go Back</a>
+                        <p className={styles.formFooterA} onClick={this.redirectToLanding}>Go Back</p>
                     </div>
                 </div>
                 {

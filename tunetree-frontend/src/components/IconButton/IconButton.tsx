@@ -1,13 +1,15 @@
 import React from 'react';
 import styles from './IconButton.module.css';
 
-interface IconButtonProps {
+export interface IconButtonProps {
     onClickFunction?: () => any;
     iconInfo: string;
     extraStyle?: string;
 }
 
-class IconButton extends React.Component<IconButtonProps> {
+export interface IconButtonState { };
+
+class IconButton extends React.Component<IconButtonProps, IconButtonState> {
     constructor(props: IconButtonProps) {
         super(props);
         this.state = {};

@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require('dotenv').config();
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = require("../models/User");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const email_validator_1 = __importDefault(require("email-validator"));
-const userRegex = RegExp('[A-Za-z0-9^\s]{6,255}');
-const passwordRegex = RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$');
+const userRegex = RegExp(process.env.USER_REGEX);
+const passwordRegex = RegExp(process.env.PASSWORD_REGEX);
 class UserService {
     constructor(mongoose) {
         this.mongoose = mongoose;
@@ -54,7 +55,7 @@ class UserService {
                     error: 'Invalid email'
                 };
             }
-            // check if username already exists
+            // check if username or email already exists
             let testDuplicateUser = yield this.Users.findOne({ username });
             if (testDuplicateUser) {
                 return {
@@ -69,7 +70,7 @@ class UserService {
                     error: 'User with that email already exists'
                 };
             }
-            // if not, encrypt password and store in database
+            // if everything passes, encrypt password and store in database
             let passwordHash = yield bcrypt_1.default.hash(password, Number(process.env.SALT_ROUNDS));
             if (!passwordHash) {
                 return {
