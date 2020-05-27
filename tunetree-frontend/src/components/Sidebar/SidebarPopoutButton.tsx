@@ -15,7 +15,7 @@ class SidebarPopoutButton extends React.Component<SidebarPopoutButtonProps, Side
     render() {
         return (
             <div className={styles.SidebarPopoutButton} onClick={this.props.onClickFunction}>
-                <i className={`fas fa-bars fa-2x ${styles.popoutIcon}`}></i>
+                <i className={`fas fa-bars fa-lg ${styles.popoutIcon}`}></i>
             </div>
         );
     }

@@ -111,3 +111,21 @@ may 25:
 
 may 26:
     Cleaned up any comments hanging around in my code, also made sure each tsx component deals with props/state in a uniform way/pattern
+
+may 27:
+    I'd like to implement the start of a user profile page (Profile picture and bio). I want the ability for users to see their page 
+    just how other users would view it, but would only be able to edit it if they are viewing their own page
+
+    Well, I some time today fixing the formatting for my sidebar and the main content on the page. It now should work great, 
+    and the only thing that will be scrollable is the main content div that changes with nested routes
+
+    Figure out nested routes had some quirks as well, especially with linking to nested routes, but it turned out ok with the Link 
+    component I forgot about LOL
+
+    I spent most of my time today trying to get transition animations to work between routes but just couldn't. I tried several things, I can 
+    get CSSTransitions from react-transition-group library working but only if I use the same technique as I did with Modals, where I wrap the content 
+    in the return function of, for example, a userprofile component, but this doesn't allow for exit transitions, which makes the whole effect not work. 
+    I tried a library react-router-transitions, but you can't control the durations of the transitions, and the default was just too long. I tried implementing 
+    several solutions I found on google but none of them would work out... :(
+    I'm going to give up on this for now, and just work on the user profile component tomorrow.
+

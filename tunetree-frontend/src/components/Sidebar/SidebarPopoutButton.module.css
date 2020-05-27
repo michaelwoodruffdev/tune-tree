@@ -1,9 +1,9 @@
 .SidebarPopoutButton {
     position: absolute;
-    padding: .75rem;
+    padding: 1rem;
     background-color: var(--mid-grey);
     text-shadow: 1px 3px 0 black;
-    right: calc(-1.5rem - 28px);
+    right: calc(-2rem - 20px);
     z-index: 1;
     transition: background-color .1s linear;
     border-right: 1px solid var(--dark-grey);
