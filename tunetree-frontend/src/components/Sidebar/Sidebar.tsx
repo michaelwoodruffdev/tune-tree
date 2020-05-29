@@ -3,7 +3,7 @@ import styles from './Sidebar.module.css';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import SidebarPopoutButton from './SidebarPopoutButton';
 
-export interface Link {
+export interface LinkInfo {
     title: string;
     route: string;
     iconInfo?: string;
@@ -11,16 +11,17 @@ export interface Link {
 
 export interface LinkGroup {
     title: string;
-    links: Array<Link>
+    links: Array<LinkInfo>
 }
 
 export interface SidebarProps {
-    linkGroups?: Array<LinkGroup>
+    linkGroups?: Array<LinkGroup>;
+    toggleSidebar: () => void;
 }
  
 export interface SidebarState {
-    activeLink: string | null, 
-    isCollapsed: boolean
+    activeLink: string | null;
+    // isCollapsed: boolean
 }
  
 class Sidebar extends React.Component<SidebarProps, SidebarState> {
@@ -30,25 +31,25 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
         super(props);
         this.state = {
             activeLink: null, 
-            isCollapsed: false
+            // isCollapsed: false
         };
 
         this.sidebarRef = React.createRef();
 
-        this.toggleSidebar = this.toggleSidebar.bind(this);
+        // this.toggleSidebar = this.toggleSidebar.bind(this);
     }
 
-    toggleSidebar() {
-        // console.log(this.sidebarRef.current?.style.left!);
-        if (this.state.isCollapsed) {
-            this.sidebarRef.current!.style.left = '0rem';
-            this.setState({ isCollapsed: false });
-        }
-        else {
-            this.sidebarRef.current!.style.left = '-15rem';
-            this.setState({ isCollapsed: true });
-        }
-    }
+    // toggleSidebar() {
+    //     // console.log(this.sidebarRef.current?.style.left!);
+    //     if (this.state.isCollapsed) {
+    //         this.sidebarRef.current!.style.left = '0rem';
+    //         this.setState({ isCollapsed: false });
+    //     }
+    //     else {
+    //         this.sidebarRef.current!.style.left = '-15rem';
+    //         this.setState({ isCollapsed: true });
+    //     }
+    // }
 
     render() { 
         return (
@@ -56,7 +57,7 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
                 {this.props.linkGroups?.map(linkGroup => (
                     <SidebarLinkGroup activeLink={this.state.activeLink} linkGroup={linkGroup} key={linkGroup.title}/>
                 ))}
-                <SidebarPopoutButton onClickFunction={this.toggleSidebar}/>
+                <SidebarPopoutButton onClickFunction={this.props.toggleSidebar}/>
             </div>
         );
     }

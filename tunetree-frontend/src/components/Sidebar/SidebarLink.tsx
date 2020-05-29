@@ -1,9 +1,10 @@
 import * as React from 'react';
 import styles from './SidebarLink.module.css';
-import { Link } from './Sidebar';
+import { LinkInfo } from './Sidebar';
+import { Link } from 'react-router-dom';
 
 export interface SidebarLinkProps {
-    link: Link;
+    link: LinkInfo;
     activeLink: string | null;
 }
 
@@ -16,10 +17,12 @@ class SidebarLink extends React.Component<SidebarLinkProps, SidebarLinkState> {
     }
     render() {
         return (
-            <div className={styles.SidebarLink}>
-                <i className={`${this.props.link.iconInfo} ${styles.linkIcon}`}></i>
-                <p className={styles.title}>{this.props.link.title}</p>
-            </div>
+            <Link to={this.props.link.route} style={{ textDecoration: 'none' }}>
+                <div className={styles.SidebarLink}>
+                    <i className={`${this.props.link.iconInfo} ${styles.linkIcon}`}></i>
+                    <p className={styles.title}>{this.props.link.title}</p>
+                </div>
+            </Link>
         );
     }
 }

@@ -1,0 +1,17 @@
+.sidebarAndContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    transition: left .3s ease, width .3s ease;
+    left: 0;
+    width: 100%;
+}
+
+.mainContent {
+    margin-left: calc(2rem + 20px);
+    padding: 2.5rem 2rem;
+    flex-grow: 1;
+    overflow: auto;
+}

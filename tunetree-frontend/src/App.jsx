@@ -9,18 +9,10 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <LandingPage />
-        </Route>
-        <Route exact path="/signin">
-          <SigninPage />
-        </Route>
-        <Route exact path="/signup">
-          <SignupPage />
-        </Route>
-        <Route exact path="/dashboard">
-          <Dashboard />
-        </Route>
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/signin" component={SigninPage} />
+        <Route exact path="/signup" component={SignupPage} />
+        <Route path="/dashboard" component={Dashboard} />
       </Switch>
     </BrowserRouter>
   );
