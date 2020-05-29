@@ -1,48 +1,48 @@
 {
-    "SERVER_URL": "http://192.168.1.103:3000",
-    "TOKEN_KEY": "jvbkfeaseljgdajfnkcldgbvdfjgfakslf", 
+    "SERVER_URL": "http://localhost:3000",
+    "TOKEN_KEY": "jvbkfeaseljgdajfnkcldgbvdfjgfakslf",
     "SIDEBAR_LINK_GROUPS": [
         {
-            "title": "YOU", 
+            "title": "YOU",
             "links": [
                 {
-                    "route": "/dashboard/home", 
-                    "title": "Home", 
+                    "route": "/dashboard/home",
+                    "title": "Home",
                     "iconInfo": "fas fa-home"
-                }, 
+                },
                 {
-                    "route": "/dashboard/mytrees", 
-                    "title": "Your trees", 
+                    "route": "/dashboard/mytrees",
+                    "title": "Your trees",
                     "iconInfo": "fas fa-project-diagram"
                 }
             ]
-        }, 
+        },
         {
-            "title": "EXPLORE", 
+            "title": "EXPLORE",
             "links": [
                 {
-                    "route": "/dashboard/trending", 
-                    "title": "Trending", 
+                    "route": "/dashboard/trending",
+                    "title": "Trending",
                     "iconInfo": "fas fa-fire"
-                }, 
+                },
                 {
-                    "route": "/dashboard/categories", 
-                    "title": "Categories", 
+                    "route": "/dashboard/categories",
+                    "title": "Categories",
                     "iconInfo": "fas fa-layer-group"
                 }
             ]
-        }, 
+        },
         {
-            "title": "CONNECT", 
+            "title": "CONNECT",
             "links": [
                 {
-                    "route": "/dashboard/following", 
-                    "title": "Following", 
+                    "route": "/dashboard/following",
+                    "title": "Following",
                     "iconInfo": "fas fa-star"
-                }, 
+                },
                 {
-                    "route": "/dashboard/friends", 
-                    "title": "Friends", 
+                    "route": "/dashboard/friends",
+                    "title": "Friends",
                     "iconInfo": "fas fa-user-friends"
                 }
             ]

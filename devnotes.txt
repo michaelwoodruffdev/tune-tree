@@ -129,3 +129,8 @@ may 27:
     several solutions I found on google but none of them would work out... :(
     I'm going to give up on this for now, and just work on the user profile component tomorrow.
 
+may 29:
+    So I made a big switch to developing on WSL2 and vscode in Windows rather than using Linux Mint in VirtualBox. I had to restart my package-lock.json, 
+    which sucks. I'm not sure why it's not working without deleting the package-lock.json with the switch but hopefully I won't have 
+    to do it again. I also removed tunetree-backend/.env config from the .gitignore, but I need to make sure I never leave any sensative info for 
+    production in that file if this app ever has a decent amount of users.

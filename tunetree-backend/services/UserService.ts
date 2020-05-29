@@ -32,13 +32,13 @@ class UserService {
         if (!userRegex.test(username)) {
             return {
                 newUser: null,
-                error: 'Invalid username. Usernames should be 6-255 characters long, and contain no white space.'
+                error: 'Invalid username. Usernames should be at least 6 characters long, and contain no white space.'
             };
         }
         if (!passwordRegex.test(password)) {
             return {
                 newUser: null,
-                error: 'Invalid password. Passwords should be 8-255 characters, contain at least 1 digit, and contain at least 1 special character.'
+                error: 'Invalid password. Passwords should be at least 8 characters long, and should contain at least 1 letter and number'
             };
         };
         // for now, we'll leave it at this, this doesn't check if an email exists, apparently, the 'email-existance' library can when I need to implement that
@@ -93,7 +93,7 @@ class UserService {
         }
         if (!user) {
             return {
-                token: null, 
+                token: null,
                 error: 'Invalid username or email'
             };
         }
@@ -104,13 +104,13 @@ class UserService {
             let token = jwt.sign({ username }, process.env.JWT_SECRET!, { expiresIn: '2h' });
             console.log(`${username} signed in`);
             return {
-                token, 
+                token,
                 error: null
             };
         }
         else {
             return {
-                token: null, 
+                token: null,
                 error: 'Invalid password'
             };
         }
