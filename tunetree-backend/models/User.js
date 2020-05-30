@@ -8,6 +8,7 @@ const Schema = mongoose_1.default.Schema;
 const userSchema = new Schema({
     username: String,
     passwordHash: String,
-    email: String
+    email: String,
+    profilePicture: Object
 });
 exports.userSchema = userSchema;

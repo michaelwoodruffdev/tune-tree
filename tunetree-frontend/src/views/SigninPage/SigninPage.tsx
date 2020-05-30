@@ -7,7 +7,7 @@ import Modal from '../../components/Modal/Modal';
 import '../../globalStyles/transitions.css';
 import { Redirect } from 'react-router-dom';
 
-export interface SigninPageProps {};
+export interface SigninPageProps { };
 
 export interface SigninPageState {
     username: string;
@@ -31,9 +31,9 @@ class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
             showModal: false,
             modalText: '',
             modalButtonText: '',
-            modalClickFunction: this.closeModal, 
-            toDashboard: false, 
-            toSignup: false, 
+            modalClickFunction: this.closeModal,
+            toDashboard: false,
+            toSignup: false,
             toLanding: false
         }
 
@@ -68,6 +68,7 @@ class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
         fetch(`${config.SERVER_URL}/signin`, {
             method: 'POST',
             body: JSON.stringify(this.state),
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -79,7 +80,8 @@ class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
                     return;
                 }
                 else {
-                    localStorage.setItem(config.TOKEN_KEY, res.token);
+                    // localStorage.setItem(config.TOKEN_KEY, res.token);
+                    // document.cookie = `${config.TOKEN_KEY}=${res.token}; expires=`
                     this.setState({ toDashboard: true });
                 }
             })
@@ -92,7 +94,7 @@ class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
         if (this.state.toSignup) {
             return <Redirect to="/signup" />
         }
-        if(this.state.toLanding) {
+        if (this.state.toLanding) {
             return <Redirect to="/" />
         }
 

@@ -77,7 +77,12 @@ class UserService {
                     error: 'Server error'
                 };
             }
-            let userToStore = { username, passwordHash, email };
+            let userToStore = {
+                username,
+                passwordHash,
+                email,
+                profilePicture: {}
+            };
             let newUser = new this.Users(userToStore);
             newUser = yield newUser.save();
             return {
@@ -118,14 +123,38 @@ class UserService {
             }
         });
     }
+    updateProfileImage(body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { username, imageData } = body;
+            let user = yield this.Users.findOne({ username });
+            if (!user) {
+                return {
+                    error: 'Unable to find user'
+                };
+            }
+            user.profilePicture = imageData;
+            user = yield user.save();
+            if (!user) {
+                return {
+                    error: 'Unable to save image'
+                };
+            }
+            return {
+                error: null
+            };
+        });
+    }
     authenticate(token) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!token) {
+                return null;
+            }
             try {
                 let decoded = yield jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
-                return true;
+                return decoded;
             }
             catch (err) {
-                return false;
+                return null;
             }
         });
     }

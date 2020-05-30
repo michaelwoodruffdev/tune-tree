@@ -18,6 +18,8 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const UserService_1 = __importDefault(require("./services/UserService"));
 const TuneTreeLogger_1 = __importDefault(require("./util/TuneTreeLogger"));
 // initialization
@@ -27,7 +29,9 @@ const userService = new UserService_1.default(mongoose_1.default);
 const tuneTreeLogger = new TuneTreeLogger_1.default();
 // dependency middleware
 app.use(body_parser_1.default.json());
-app.use(cors_1.default());
+app.use(cors_1.default({ origin: 'http://localhost:8080', credentials: true }));
+app.use(express_fileupload_1.default());
+app.use(cookie_parser_1.default());
 // SIGN UP
 app.post('/signup', (req, res) => __awaiter(this, void 0, void 0, function* () {
     tuneTreeLogger.logRequest(new Date(), req.ip, req.path);
@@ -36,9 +40,27 @@ app.post('/signup', (req, res) => __awaiter(this, void 0, void 0, function* () {
 }));
 // SIGN IN
 app.post('/signin', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    console.log('hello?');
     tuneTreeLogger.logRequest(new Date(), req.ip, req.path);
     let signinResults = yield userService.signin(req.body);
+    if (!signinResults.error) {
+        console.log('sending cookie');
+        res.cookie('tunetreeToken', signinResults.token, { httpOnly: true });
+    }
+    delete signinResults.token;
     res.status(200).json(signinResults).end();
+}));
+app.post('/update-profile-picture', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    tuneTreeLogger.logRequest(new Date(), req.ip, req.path);
+    let decodedToken = Object(yield userService.authenticate(req.cookies.tunetreeToken));
+    if (!decodedToken) {
+        res.status(401).json({ error: 'Invalid Credentials' }).end();
+        return;
+    }
+    console.log(req.files.imageData);
+    let updateResults = userService.updateProfileImage({ username: decodedToken.username, imageData: req.files.imageData });
+    res.status(200).json(updateResults).end();
 }));
 // TEST PROTECTED ENDPOINT
 app.post('/protected-endpoint', (req, res) => __awaiter(this, void 0, void 0, function* () {

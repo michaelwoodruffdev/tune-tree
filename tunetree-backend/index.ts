@@ -6,9 +6,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import fileupload from 'express-fileupload';
+import cookieParser from 'cookie-parser';
 
 import UserService from './services/UserService';
 import TuneTreeLogger from './util/TuneTreeLogger';
+import { sign } from 'crypto';
 
 // initialization
 const app = express();
@@ -18,7 +21,9 @@ const tuneTreeLogger = new TuneTreeLogger();
 
 // dependency middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
+app.use(fileupload());
+app.use(cookieParser());
 
 // SIGN UP
 app.post('/signup', async (req, res) => {
@@ -29,9 +34,28 @@ app.post('/signup', async (req, res) => {
 
 // SIGN IN
 app.post('/signin', async (req, res) => {
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    console.log('hello?');
     tuneTreeLogger.logRequest(new Date(), req.ip, req.path);
     let signinResults = await userService.signin(req.body);
+    if (!signinResults.error) {
+        console.log('sending cookie');
+        res.cookie('tunetreeToken', signinResults.token, { httpOnly: true });
+    }
+    delete signinResults.token;
     res.status(200).json(signinResults).end();
+});
+
+app.post('/update-profile-picture', async (req, res) => {
+    tuneTreeLogger.logRequest(new Date(), req.ip, req.path);
+    let decodedToken = Object(await userService.authenticate(req.cookies.tunetreeToken));
+    if (!decodedToken) {
+        res.status(401).json({ error: 'Invalid Credentials' }).end();
+        return;
+    }
+    console.log(req.files!.imageData);
+    let updateResults = userService.updateProfileImage({ username: decodedToken.username, imageData: req.files!.imageData });
+    res.status(200).json(updateResults).end();
 });
 
 // TEST PROTECTED ENDPOINT

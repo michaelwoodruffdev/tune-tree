@@ -2,16 +2,18 @@ require('dotenv').config();
 
 import bcrypt from 'bcrypt';
 import { userSchema, User } from '../models/User';
-import { Mongoose } from 'mongoose';
+import { Mongoose, Model } from 'mongoose';
 import jwt from 'jsonwebtoken';
 import EmailValidator from 'email-validator';
+import { Binary } from 'mongodb';
+import { UploadedFile } from 'express-fileupload';
 
 const userRegex = RegExp(process.env.USER_REGEX!);
 const passwordRegex = RegExp(process.env.PASSWORD_REGEX!);
 
 class UserService {
     mongoose: Mongoose;
-    Users: any;
+    Users: Model<any, {}>;
 
     constructor(mongoose: Mongoose) {
         this.mongoose = mongoose;
@@ -74,7 +76,12 @@ class UserService {
             };
         }
 
-        let userToStore: User = { username, passwordHash, email };
+        let userToStore: User = {
+            username,
+            passwordHash,
+            email,
+            profilePicture: {}
+        };
         let newUser = new this.Users(userToStore);
         newUser = await newUser.save();
         return {
@@ -116,12 +123,37 @@ class UserService {
         }
     }
 
+    async updateProfileImage(body: { username: string, imageData: UploadedFile }) {
+        const { username, imageData } = body;
+
+        let user = await this.Users.findOne({ username });
+        if (!user) {
+            return {
+                error: 'Unable to find user'
+            }
+        }
+
+        user.profilePicture = imageData;
+        user = await user.save();
+        if (!user) {
+            return {
+                error: 'Unable to save image'
+            }
+        }
+        return {
+            error: null
+        }
+    }
+
     async authenticate(token: string) {
+        if (!token) {
+            return null;
+        }
         try {
             let decoded = await jwt.verify(token, process.env.JWT_SECRET!);
-            return true;
+            return decoded;
         } catch (err) {
-            return false;
+            return null;
         }
     }
 }

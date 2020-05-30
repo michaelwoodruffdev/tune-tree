@@ -134,3 +134,15 @@ may 29:
     which sucks. I'm not sure why it's not working without deleting the package-lock.json with the switch but hopefully I won't have 
     to do it again. I also removed tunetree-backend/.env config from the .gitignore, but I need to make sure I never leave any sensative info for 
     production in that file if this app ever has a decent amount of users.
+
+    I'm trying to get images to successfully upload to the server, I've gotten pretty far using this article: 
+      https://flaviocopes.com/file-upload-using-ajax/
+    It's weird because I can't send the image as a parameter, I need to send it as just the formData itself, so I need 
+    to implement the httpOnly cookies sending of token over the server through headers earlier than I thought
+
+may 30:
+    Alright, I finally got users to be able to upload an image, now I need to let the user take that image from the server, and have it presented in their browser.
+    The tough part really came from uploading files forcing me to move the JWT to httpOnly cookie, which required some cors configuration and some extra parsing middleware 
+    in my express app.
+
+    
