@@ -13,13 +13,16 @@ export interface UserProfileState {
 
 class UserProfile extends React.Component<UserProfileProps, UserProfileState> {
     imageRef: React.RefObject<HTMLInputElement>;
+    profilePicRef: React.RefObject<HTMLImageElement>;
 
     constructor(props: UserProfileProps) {
         super(props);
         this.state = {};
         this.imageRef = React.createRef();
+        this.profilePicRef = React.createRef();
 
         this.submitProfilePicture = this.submitProfilePicture.bind(this);
+        this.getProfilePicture = this.getProfilePicture.bind(this);
     }
 
     submitProfilePicture() {
@@ -50,13 +53,48 @@ class UserProfile extends React.Component<UserProfileProps, UserProfileState> {
         })
             .then(res => res.json())
             .then(res => {
-                window.alert(res.error);
+                if (res.error) {
+                    window.alert(res.error);
+                }
+                else {
+                    this.getProfilePicture();
+                }
             });
+    }
+
+    getProfilePicture() {
+        let requestObject = {
+            username: localStorage.getItem('username')
+        }
+        fetch(`${config.SERVER_URL}/get-profile-picture`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestObject)
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                this.profilePicRef.current!.src = `data:image/png;base64,${res.image.data}`;
+            });
+    }
+
+    componentDidMount() {
+        this.getProfilePicture();
     }
 
     render() {
         return (
             <div className={styles.UserProfile}>
+                <div className={styles.profileHeader}>
+                    <div className={styles.profilePicContainer}>
+                        <img ref={this.profilePicRef} className={styles.profilePic} />
+                    </div>
+                    <div className={styles.profileInfo}>
+                        <h1 className={styles.username}>Doggy the User</h1>
+                    </div>
+                </div>
                 <input type="file" ref={this.imageRef} />
                 <Button buttonText="test" onClickFunction={this.submitProfilePicture} />
             </div>

@@ -8,6 +8,10 @@ const Schema = mongoose_1.default.Schema;
 const userSchema = new Schema({
     username: String,
     passwordHash: String,
+    bio: String,
+    treesMade: Number,
+    contributionsMade: Number,
+    followerCount: Number,
     email: String,
     profilePicture: Object
 });

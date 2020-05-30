@@ -80,6 +80,10 @@ class UserService {
             let userToStore = {
                 username,
                 passwordHash,
+                bio: '',
+                treesMade: 0,
+                contributionsMade: 0,
+                followerCount: 0,
                 email,
                 profilePicture: {}
             };
@@ -112,6 +116,7 @@ class UserService {
                 console.log(`${username} signed in`);
                 return {
                     token,
+                    username,
                     error: null
                 };
             }
@@ -123,7 +128,7 @@ class UserService {
             }
         });
     }
-    updateProfileImage(body) {
+    updateProfilePicture(body) {
         return __awaiter(this, void 0, void 0, function* () {
             const { username, imageData } = body;
             let user = yield this.Users.findOne({ username });
@@ -140,6 +145,22 @@ class UserService {
                 };
             }
             return {
+                error: null
+            };
+        });
+    }
+    getProfilePicture(body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { username } = body;
+            let user = yield this.Users.findOne({ username });
+            if (!user) {
+                return {
+                    error: 'Unable to find user'
+                };
+            }
+            console.log(user.profilePicture);
+            return {
+                image: user.profilePicture,
                 error: null
             };
         });

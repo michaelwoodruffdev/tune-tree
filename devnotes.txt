@@ -145,4 +145,5 @@ may 30:
     The tough part really came from uploading files forcing me to move the JWT to httpOnly cookie, which required some cors configuration and some extra parsing middleware 
     in my express app.
 
-    
+    So I got binary image uploading and downloading/displaying to work, which ran into some unexpected stuff. Now I'm finally ready to design and format 
+    the profile page (at least to the point just before it actually displays the different trees the user has contributed to). I'll start all that later/tomorrow.

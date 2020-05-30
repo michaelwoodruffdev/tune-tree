@@ -80,8 +80,7 @@ class SigninPage extends React.Component<SigninPageProps, SigninPageState> {
                     return;
                 }
                 else {
-                    // localStorage.setItem(config.TOKEN_KEY, res.token);
-                    // document.cookie = `${config.TOKEN_KEY}=${res.token}; expires=`
+                    localStorage.setItem('username', res.username);
                     this.setState({ toDashboard: true });
                 }
             })

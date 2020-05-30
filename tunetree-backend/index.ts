@@ -54,8 +54,17 @@ app.post('/update-profile-picture', async (req, res) => {
         return;
     }
     console.log(req.files!.imageData);
-    let updateResults = userService.updateProfileImage({ username: decodedToken.username, imageData: req.files!.imageData });
+    let updateResults = userService.updateProfilePicture({ username: decodedToken.username, imageData: req.files!.imageData });
     res.status(200).json(updateResults).end();
+});
+
+app.post('/get-profile-picture', async (req, res) => {
+    tuneTreeLogger.logRequest(new Date(), req.ip, req.path);
+    console.log(req.body);
+    let imageResults = await userService.getProfilePicture(req.body);
+    console.log('image results');
+    console.log(imageResults);
+    res.status(200).json(imageResults).end();
 });
 
 // TEST PROTECTED ENDPOINT
